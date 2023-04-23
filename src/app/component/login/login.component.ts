@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
-import { AuthApiService } from '../service/AuthApiService';
+import { AuthApiService } from '../../service/AuthApiService';
 import Cookies from 'universal-cookie';
 
 @Component({
@@ -10,7 +10,6 @@ import Cookies from 'universal-cookie';
   styleUrls: ['./login.component.css']
 })
 export class LoginComponent implements OnInit {
-
 
   loginForm = new FormGroup({
     email: new FormControl('', [Validators.pattern(/.+@.+\.[a-zA-Z0-9]+/i), Validators.required]),
@@ -29,7 +28,7 @@ export class LoginComponent implements OnInit {
       next: (res) => {
           const cookies = new Cookies();
           cookies.set('access', res.accessToken, { path: '/', expires: new Date (Number(res.expTime)) });
-          // this.router.navigate(['/hello'])
+          this.router.navigate(['/'])
           alert("user logged in")
       },
       error: (response) => {
