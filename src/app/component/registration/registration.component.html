@@ -1,9 +1,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Tailwind Register Template</title>
-    <meta name="author" content="David Grzyb">
-    <!-- Tailwind -->
+    <title>Register</title>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/tailwindcss/2.2.19/tailwind.min.css" rel="stylesheet">
     <style>
         @import url('https://fonts.googleapis.com/css?family=Karla:400,700&display=swap');
@@ -13,62 +11,58 @@
         }
     </style>
 </head>
+
 <body class="bg-white font-family-karla h-screen">
-
     <div class="w-full flex flex-wrap">
-
-        <!-- Register Section -->
         <div class="w-full md:w-1/2 flex flex-col">
             <div class="flex justify-center md:justify-start pt-12 md:pl-12 md:-mb-12">
                 <a href="#" class="bg-black text-white font-bold text-xl p-4" alt="Logo">RestKeeper</a>
             </div>
-
             <div class="flex flex-col justify-center md:justify-start my-auto pt-8 md:pt-0 px-8 md:px-24 lg:px-32">
                 <p class="text-center text-3xl">New employee</p>
                 <form class="form" [formGroup]="registerForm" (ngSubmit)="onSubmitForm()">
                     <div class="flex flex-col pt-4">
                         <label for="name" class="text-lg">Name</label>
-                        <input type="text" id="name" formControlName="name" placeholder="John" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 mt-1 leading-tight focus:outline-none focus:shadow-outline" />
+                        <input type="text" id="name" formControlName="name" placeholder="John"
+                            class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 mt-1 leading-tight focus:outline-none focus:shadow-outline" />
                     </div>
-
                     <div class="flex flex-col pt-4">
                         <label for="name" class="text-lg">Surname</label>
-                        <input type="text" id="surname" formControlName="surname" placeholder="Smith" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 mt-1 leading-tight focus:outline-none focus:shadow-outline" />
+                        <input type="text" id="surname" formControlName="surname" placeholder="Smith"
+                            class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 mt-1 leading-tight focus:outline-none focus:shadow-outline" />
                     </div>
-
                     <div class="flex flex-col pt-4">
                         <label for="email" class="text-lg">Email</label>
-                        <input type="email" id="email" formControlName="email" placeholder="example@email.com" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 mt-1 leading-tight focus:outline-none focus:shadow-outline" />
+                        <input type="email" id="email" formControlName="email" placeholder="example@email.com"
+                            class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 mt-1 leading-tight focus:outline-none focus:shadow-outline" />
                     </div>
 
                     <div class="flex flex-col pt-4">
                         <label for="name" class="text-lg">Passport</label>
-                        <input type="text" id="passport" formControlName="passport" placeholder="Passport" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 mt-1 leading-tight focus:outline-none focus:shadow-outline" />
+                        <input type="text" id="passport" formControlName="passport" placeholder="Passport"
+                            class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 mt-1 leading-tight focus:outline-none focus:shadow-outline" />
                     </div>
-
                     <div class="flex flex-col pt-4">
-                        <label for="name" class="text-lg">Role</label>
-                        <input type="text" id="role" formControlName="role" placeholder="Role" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 mt-1 leading-tight focus:outline-none focus:shadow-outline" />
+                        <label for="role" class="text-lg">Role</label>
+                        <select id="role" formControlName="role" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 mt-1 leading-tight focus:outline-none focus:shadow-outline">
+                            <option value="ROLE_ADMIN">Admin</option>
+                            <option value="ROLE_HALL">Hall</option>
+                            <option value="ROLE_KITCHEN">Kitchen</option>
+                          </select>
                     </div>
-    
                     <div class="flex flex-col pt-4">
                         <label for="password" class="text-lg">Password</label>
-                        <input type="password" id="password" formControlName="password" placeholder="Password" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 mt-1 leading-tight focus:outline-none focus:shadow-outline" />
+                        <input type="password" id="password" formControlName="password" placeholder="Temp password"
+                            class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 mt-1 leading-tight focus:outline-none focus:shadow-outline" />
                     </div>
-    
-                    <input type="submit" value="Register" [disabled]=!registerForm.valid class="bg-black text-white font-bold text-lg hover:bg-gray-700 p-2 mt-8" />
+                    <input type="submit" value="Register" [disabled]=!registerForm.valid
+                        class="bg-black text-white font-bold text-lg hover:bg-gray-700 p-2 mt-8" />
                 </form>
-<!--                 <div class="text-center pt-12 pb-12">
-                    <p>Already have an account? <a href="login.html" class="underline font-semibold">Log in here.</a></p>
-                </div> -->
             </div>
-
         </div>
-
-        <!-- Image Section -->
         <div class="w-1/2 shadow-2xl">
-            <img class="object-cover w-full h-300 hidden md:block" src="https://source.unsplash.com/IXUM4cJynP0" alt="Background" />
+            <img class="object-cover w-full h-300 hidden md:block" src="https://source.unsplash.com/IXUM4cJynP0"
+                alt="Background" />
         </div>
     </div>
-
 </body>

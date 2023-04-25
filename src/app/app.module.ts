@@ -10,6 +10,10 @@ import { AuthInterceptor } from './interseptor/interseptor';
 import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
 import { RouterModule, Routes } from '@angular/router';
 import { RegistrationComponent } from './component/registration/registration.component';
+import { ProfileComponent } from './component/profile/profile.component';
+import { UserService } from './service/UserService';
+import { User } from './model/user';
+import { EmployeeComponent } from './component/employee/employee.component';
 
 
 
@@ -17,7 +21,9 @@ import { RegistrationComponent } from './component/registration/registration.com
   declarations: [
     AppComponent,
     LoginComponent,
-    RegistrationComponent
+    RegistrationComponent,
+    ProfileComponent,
+    EmployeeComponent
   ],
   imports: [
     BrowserModule,
@@ -28,6 +34,7 @@ import { RegistrationComponent } from './component/registration/registration.com
  ],
   providers: [    
     AuthApiService,
+    UserService,
     {provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true}  
   ],
   bootstrap: [AppComponent]
