@@ -11,6 +11,7 @@ import Cookies from 'universal-cookie';
 })
 export class RegistrationComponent implements OnInit{
 
+  id!: string | null;
   registerForm = new FormGroup({
     name: new FormControl('', [Validators.required]),
     surname: new FormControl('', [Validators.required]),
@@ -23,6 +24,7 @@ export class RegistrationComponent implements OnInit{
   constructor(private authApi: AuthApiService, private router: Router) { }
 
   ngOnInit(): void {
+    this.id = localStorage.getItem('userId');
   }
 
   onSubmitForm(){ 
@@ -30,8 +32,8 @@ export class RegistrationComponent implements OnInit{
     .register(this.registerForm)
     .subscribe({
       next: (res) => {
-          this.router.navigate(['/login'])
-          alert("user is registered sucessfully")
+        this.router.navigate([`/profile/${this.id}`]);
+          alert("New employee is registered sucessfully!")
       },
       error: (response) => {
         if (response.status === 400|| response.status === 401 || response.status === 404){

@@ -33,7 +33,6 @@ export class LoginComponent implements OnInit {
           localStorage.setItem('userId', res.userId);
           localStorage.setItem('roleName', res.roleName);
           this.router.navigate([`/profile/${res.userId}`]);
-          alert("user logged in");
         },
         error: (response) => {
           if (response.status === 400 || response.status === 401 || response.status === 404) {
@@ -42,7 +41,7 @@ export class LoginComponent implements OnInit {
             });
           }
           if (response.status >= 500) {
-            alert("something happened on the server")
+            alert("Something happened on the server!")
           }
         }
       })

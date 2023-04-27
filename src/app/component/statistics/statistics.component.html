@@ -62,37 +62,48 @@
             <img class="object-cover w-full h-48 hidden md:block" src="https://source.unsplash.com/IXUM4cJynP0">
         </div>
         <div class="w-full flex flex-col">
-            <p class="bg-black text-center text-white font-bold text-xl p-4">My profile</p>
+            <p class="bg-black text-center text-white font-bold text-xl p-4">Statistics</p>
         </div>
-        <div class="w-full md:w-1/2 flex flex-col">
-            <div class="flex flex-col justify-center md:justify-start my-auto pt-8 md:pt-0 px-8 md:px-24 lg:px-32">
-                <p class="text-center text-violet-600 font-bold text-2xl pt-5">{{user.name}} {{user.surname}}</p>
-                <p class="text-black text-xl pt-5">Email: {{user.email}}</p>
-                <p class="text-black text-xl pt-3">Passport: {{user.passport}}</p>
-                <p class="text-black text-xl pt-3">Date of birth: {{user.dateOfBirth}}</p>
-                <p class="text-black text-xl pt-3">Phone number: {{user.phoneNumber}}</p>
-                <p class="text-black text-xl pt-3" *ngIf="user.score!=null">Score: {{user.score}}</p>
-                <p class="text-black font-bold text-xl pt-3" *ngIf="user.address!=null">Address:</p>
-                <p class="text-black text-xl pt-3" *ngIf="user.address!=null">City: {{user.address.city}}</p>
-                <p class="text-black text-xl pt-3" *ngIf="user.address!=null">Street: {{user.address.street}}</p>
-                <p class="text-black text-xl pt-3" *ngIf="user.address!=null">House: {{user.address.house}}</p>
-                <p class="text-black text-xl pt-3" *ngIf="user.address!=null">Flat: {{user.address.flat}}</p>
-                <div class="flex flex-row">
-                    <button (click)="deletePhoto()"
-                        class="bg-black text-white font-bold text-lg hover:bg-gray-700 p-2 mt-8">Delete
-                        photo</button>
-                    <a href="/profile/{{id}}/update"
-                        class="bg-black text-white font-bold text-lg hover:bg-gray-700 p-2 mt-8">Update
-                        profile</a>
-                    <button *ngIf="role=='ROLE_ADMIN'" (click)="delete()"
-                        class="bg-black text-red-400 font-bold text-lg hover:bg-gray-700 p-2 mt-8">Delete
-                        profile</button>
+        <div class="w-full flex flex-col">
+            <div class="py-8 px-4 mx-auto max-w-screen-xl lg:py-16 lg:px-6">
+                <div class="mx-auto max-w-screen-sm text-center">
+                    <h2 class="mb-4 text-4xl tracking-tight font-extrabold text-black dark:text-white">Report</h2>
+                    <p class="font-light text-gray-500  sm:text-xl dark:text-gray-400">Explore the whole
+                        collection of open-source web components and elements built with the utility classes from
+                        Tailwind</p>
                 </div>
             </div>
-        </div>
-        <div class="w-full md:w-1/2 pt-5">
-            <div class="w-80 shadow-2xl">
-                <img class="object-cover w-80 h-80 hidden md:block" src={{link}}>
+            <div class="flex flex-col justify-center md:justify-start my-auto pt-8 md:pt-0 px-8 md:px-24 lg:px-32">
+                <table class="table-fixes border-collapse border border-slate-500">
+                    <thead>
+                        <tr>
+                            <th class="border border-slate-600">Daily revenue</th>
+                            <th class="border border-slate-600">Monthly revenue</th>
+                            <th class="border border-slate-600">Average bill</th>
+                            <th class="border border-slate-600">Daily amount of guests</th>
+                            <th class="border border-slate-600">Amount of guests in the morning</th>
+                            <th class="border border-slate-600">Amount of guests in the evening</th>
+                            <th class="border border-slate-600">The most popular dish</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td class="border border-slate-600 p-2 text-center">{{statistics.dailyRevenue}}</td>
+                            <td class="border border-slate-600 p-2 text-center">{{statistics.monthlyRevenue}}</td>
+                            <td class="border border-slate-600 p-2 text-center">{{statistics.averageBill}}</td>
+                            <td class="border border-slate-600 p-2 text-center">{{statistics.dailyAmountOfGuests}}</td>
+                            <td class="border border-slate-600 p-2 text-center">{{statistics.firstHalfAmountOfGuests}}
+                            </td>
+                            <td class="border border-slate-600 p-2 text-center">{{statistics.lastHalfAmountOfGuests}}
+                            </td>
+                            <td class="border border-slate-600 p-2 text-center">{{statistics.dailyDish.name}}</td>
+                        </tr>
+                    </tbody>
+                </table>
+                <div class="flex flex-wrap">
+                    <a href="http://localhost:8080/restkeeper/v1/statistics/download" class="text-center bg-black text-white w-40 font-bold text-lg hover:bg-gray-700 p-2 mt-8">
+                        Download report</a>
+                </div>
             </div>
         </div>
     </div>

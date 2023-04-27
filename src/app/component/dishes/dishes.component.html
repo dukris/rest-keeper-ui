@@ -61,54 +61,55 @@
         <div class="w-full h-48 shadow-2xl">
             <img class="object-cover w-full h-48 hidden md:block" src="https://source.unsplash.com/IXUM4cJynP0">
         </div>
-        <!--  <form class="form" [formGroup]="surnameForm" (ngSubmit)="surnameSearch()">
-            <div class="flex flex-col p-4">
-                <label for="email" class="text-lg">Search</label>
-                <input type="search" id="searchSurname" name="searchSurname" formGroupName="searchSurname" placeholder="Surname..." class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 mt-1 leading-tight focus:outline-none focus:shadow-outline"/>
-                <button class="p-2" type="submit">Submit</button>
-            </div>
-        </form> -->
     </div>
     <div class="w-full flex flex-wrap">
         <div class="w-full flex flex-col">
-            <p class="bg-black text-center text-white font-bold text-xl p-4">Employees</p>
+            <p class="bg-black text-center text-white font-bold text-xl p-4">Dishes</p>
             <section class="p-2">
                 <div class="py-8 px-4 mx-auto max-w-screen-xl lg:py-16 lg:px-6">
                     <div class="mx-auto max-w-screen-sm text-center mb-8 lg:mb-16">
-                        <h2 class="mb-4 text-4xl tracking-tight font-extrabold text-black dark:text-white">Our Team</h2>
+                        <h2 class="mb-4 text-4xl tracking-tight font-extrabold text-black dark:text-white">Menu</h2>
                         <p class="font-light text-gray-500 lg:mb-16 sm:text-xl dark:text-gray-400">Explore the whole
                             collection of open-source web components and elements built with the utility classes from
                             Tailwind</p>
-                            <a href="/register" class="text-center bg-black text-white w-40 font-bold text-lg hover:bg-gray-700 p-2 mt-8">
-                                Register new employee</a>
+                        <a href="/dishes/create" *ngIf="role!='ROLE_HALL'"
+                            class="text-center bg-black text-white w-40 font-bold text-lg hover:bg-gray-700 p-2 mt-8">
+                            Add new dish</a>
                     </div>
                     <form class="form">
                         <div class="p-4">
-                            <p class="font-light text-gray-500 sm:text-xl">Here you can choose the department...</p>
-                            <select #device (change)="roleSearch(device.value)" id="role" formControlName="searchRole"
+                            <p class="font-light text-gray-500 sm:text-xl">Here you can choose the filter...</p>
+                            <select #device (change)="search(device.value)" id="role" formControlName="searchRole"
                                 class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 mt-1 leading-tight focus:outline-none focus:shadow-outline">
                                 <option value="All">All</option>
-                                <option value="ROLE_ADMIN">Administration</option>
-                                <option value="ROLE_HALL">Hall</option>
-                                <option value="ROLE_KITCHEN">Kitchen</option>
+                                <option value="Available">Only available</option>
                             </select>
                         </div>
                     </form>
                     <div class="grid gap-8 mb-6 lg:mb-16 md:grid-cols-2">
-                        <div class="items-center bg-gray-50 rounded-lg shadow sm:flex dark:bg-gray-800 dark:border-gray-700"
-                            *ngFor="let user of users">
-                            <a routerLink="/profile/{{user.id}}">
-                                <img class="w-80 h-80 rounded-lg sm:rounded-none sm:rounded-l-lg" src={{user.photoPath}}
-                                    alt="image">
-                            </a>
-                            <div class="p-5">
-                                <h3 class="text-xl font-bold tracking-tight text-gray-900 dark:text-white">
-                                    <a routerLink="/profile/{{user.id}}">{{user.name}} {{user.surname}}</a>
-                                </h3>
-                                <span class="text-gray-500 dark:text-gray-400">{{user.role}}</span>
-                                <p class="mt-3 mb-4 font-light text-gray-500 dark:text-gray-400">{{user.email}}</p>
+                        <article *ngFor="let dish of dishes"
+                            class="p-6 bg-white rounded-lg border border-gray-200 shadow-md dark:bg-gray-800 dark:border-gray-700">
+                            <h2 class="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white"><a
+                                    href="#">{{dish.name}}</a></h2>
+                            <p class="mb-5 font-light text-gray-500 dark:text-gray-400">{{dish.description}}</p>
+                            <div class="flex justify-between items-center">
+                                <div class="flex items-center space-x-4">
+                                    <span *ngIf="dish.availability" class="font-medium text-green-600">
+                                        Available
+                                    </span>
+                                    <span *ngIf="!dish.availability" class="font-medium text-red-600">
+                                        Unavailable
+                                    </span>
+                                    <a *ngIf="role!='ROLE_HALL'" href="/dishes/{{dish.id}}/update" class="text-black font-bold text-lg hover:bg-gray-700 p-2 mt-8">
+                                        Update dish
+                                    </a>
+                                    <button *ngIf="role!='ROLE_HALL'" (click)="delete(dish.id)" class="text-red-400 font-bold text-lg hover:bg-gray-700 p-2 mt-8">
+                                        Delete dish
+                                    </button>
+                                </div>
+                                <p class="text-black font-bold text-2xl hover:bg-gray-700 mt-8">{{dish.price}}$</p>
                             </div>
-                        </div>
+                        </article>
                     </div>
                 </div>
             </section>
