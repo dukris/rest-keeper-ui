@@ -28,7 +28,7 @@ export class AuthInterceptor implements HttpInterceptor {
     }
 
   intercept(req: HttpRequest<any>,next: HttpHandler): Observable<HttpEvent<any>> {
-    if (!(req.url==`http://localhost:8080/api/v1/auth/teachers` && req.method== 'POST')) {
+    if (!(req.url.includes(`photos`) && req.method== 'POST')) {
       req = req.clone({
         headers: req.headers.set("Content-Type", "application/json")
       });

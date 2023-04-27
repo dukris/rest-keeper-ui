@@ -1,38 +1,42 @@
+import { Address } from "./address";
 
 export class User {
 
-    id: number;
-    name: string;
-    surname: string;
-    email: string;
-    role: string;
-    passport: string;
-    dateOfBirth: string;
-    phoneNumber: number;
-    photoPath: string;
-    score: number;
+  id: string | null;
+  name: string | null;
+  surname: string | null;
+  email: string | null;
+  role: string | null;
+  passport: string | null;
+  dateOfBirth: string | null;
+  phoneNumber: string | null;
+  photoPath: string | null;
+  score: string | null;
+  address: Address;
 
-    constructor(
-      id: number,
-      name: string,
-      surname: string,
-      email: string,
-      role: string,
-      passport: string,
-      dateOfBirth: string,
-      phoneNumber: number,
-      photoPath: string,
-      score: number) {
-        this.id = id;
-        this.name = name;
-        this.surname = surname;
-        this.email = email;
-        this.role = role;
-        this.passport = passport;
-        this.dateOfBirth = dateOfBirth;
-        this.phoneNumber = phoneNumber;
-        this.photoPath = photoPath;
-        this.score = score;
-       }
+  constructor(
+    id: string | null,
+    name: string | null,
+    surname: string | null,
+    email:  string | null,
+    role:  string | null,
+    passport:  string | null,
+    dateOfBirth:  string | null,
+    phoneNumber:  string | null,
+    photoPath:  string | null,
+    score:  string | null,
+    address: Address) {
+    this.id = id;
+    this.name = name;
+    this.surname = surname;
+    this.email = email;
+    this.role = role;
+    this.passport = passport;
+    this.dateOfBirth = dateOfBirth;
+    this.phoneNumber = phoneNumber;
+    this.photoPath = photoPath;
+    this.score = score;
+    this.address = address;
+  }
 
 }

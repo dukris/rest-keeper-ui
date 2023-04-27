@@ -14,6 +14,8 @@ import { ProfileComponent } from './component/profile/profile.component';
 import { UserService } from './service/UserService';
 import { User } from './model/user';
 import { EmployeeComponent } from './component/employee/employee.component';
+import { HomeComponent } from './component/home/home.component';
+import { ProfileUpdateComponent } from './component/profile-update/profile-update.component';
 
 
 
@@ -23,7 +25,9 @@ import { EmployeeComponent } from './component/employee/employee.component';
     LoginComponent,
     RegistrationComponent,
     ProfileComponent,
-    EmployeeComponent
+    EmployeeComponent,
+    HomeComponent,
+    ProfileUpdateComponent
   ],
   imports: [
     BrowserModule,

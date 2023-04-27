@@ -13,7 +13,7 @@ export class LoginComponent implements OnInit {
 
   loginForm = new FormGroup({
     email: new FormControl('', [Validators.pattern(/.+@.+\.[a-zA-Z0-9]+/i), Validators.required]),
-    password: new FormControl('', [Validators.required])
+    password: new FormControl('', [Validators.required, Validators.minLength(8), Validators.maxLength(20)])
   })
 
   constructor(private authApi: AuthApiService, private router: Router) { }
@@ -32,7 +32,7 @@ export class LoginComponent implements OnInit {
           cookies.set('access', res.accessToken, { path: '/', expires: new Date(Number(res.expTime)) });
           localStorage.setItem('userId', res.userId);
           localStorage.setItem('roleName', res.roleName);
-          this.router.navigate(['/profile']);
+          this.router.navigate([`/profile/${res.userId}`]);
           alert("user logged in");
         },
         error: (response) => {
