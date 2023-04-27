@@ -1,36 +1,39 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
-import { AuthApiService } from '../service/AuthApiService';
+import { AuthApiService } from '../../service/AuthApiService';
 import Cookies from 'universal-cookie';
 
 @Component({
-  selector: 'app-login',
-  templateUrl: './login.component.html',
-  styleUrls: ['./login.component.css']
+  selector: 'app-registration',
+  templateUrl: './registration.component.html',
+  styleUrls: ['./registration.component.css']
 })
-export class LoginComponent implements OnInit {
+export class RegistrationComponent implements OnInit{
 
-
-  loginForm = new FormGroup({
+  id!: string | null;
+  registerForm = new FormGroup({
+    name: new FormControl('', [Validators.required]),
+    surname: new FormControl('', [Validators.required]),
     email: new FormControl('', [Validators.pattern(/.+@.+\.[a-zA-Z0-9]+/i), Validators.required]),
+    passport: new FormControl('', [Validators.required]),
+    role: new FormControl('', [Validators.required]),
     password: new FormControl('', [Validators.required])
   })
   
   constructor(private authApi: AuthApiService, private router: Router) { }
 
   ngOnInit(): void {
+    this.id = localStorage.getItem('userId');
   }
 
   onSubmitForm(){ 
     this.authApi
-    .login(this.loginForm)
+    .register(this.registerForm)
     .subscribe({
       next: (res) => {
-          const cookies = new Cookies();
-          cookies.set('access', res.accessToken, { path: '/', expires: new Date (Number(res.expTime)) });
-          // this.router.navigate(['/hello'])
-          alert("user logged in")
+        this.router.navigate([`/profile/${this.id}`]);
+          alert("New employee is registered sucessfully!")
       },
       error: (response) => {
         if (response.status === 400|| response.status === 401 || response.status === 404){
