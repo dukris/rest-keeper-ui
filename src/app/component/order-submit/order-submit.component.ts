@@ -36,7 +36,6 @@ export class OrderSubmitComponent implements OnInit {
       .subscribe({
         next: (res) => {
           this.order = res;
-          this.router.navigate([`/orders`]);
         },
         error: (response) => {
           if (response.status === 400 || response.status === 401 || response.status === 404) {
@@ -96,6 +95,7 @@ export class OrderSubmitComponent implements OnInit {
       .subscribe({
         next: (res) => {
           alert("Order is received successfully!")
+          this.router.navigate([`/orders`]);
         },
         error: (response) => {
           if (response.status === 400 || response.status === 401 || response.status === 404) {

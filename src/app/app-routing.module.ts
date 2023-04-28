@@ -12,6 +12,7 @@ import { DishUpdateComponent } from './component/dish-update/dish-update.compone
 import { DishCreateComponent } from './component/dish-create/dish-create.component';
 import { OrderCreateComponent } from './component/order-create/order-create.component';
 import { OrderSubmitComponent } from './component/order-submit/order-submit.component';
+import { OrderComponent } from './component/order/order.component';
 
 const routes: Routes = [
   { path: 'login', component:  LoginComponent},
@@ -25,7 +26,8 @@ const routes: Routes = [
   { path: 'dishes/:id/update', component:  DishUpdateComponent},
   { path: 'dishes/create', component:  DishCreateComponent},
   { path: 'orders/create', component: OrderCreateComponent},
-  { path: 'orders/:id/submit', component: OrderSubmitComponent}
+  { path: 'orders/:id/submit', component: OrderSubmitComponent},
+  { path: 'orders', component: OrderComponent}
 ];
 
 @NgModule({

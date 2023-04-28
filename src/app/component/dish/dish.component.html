@@ -88,26 +88,28 @@
                     </form>
                     <div class="grid gap-8 mb-6 lg:mb-16 md:grid-cols-2">
                         <article *ngFor="let dish of dishes"
-                            class="p-6 bg-white rounded-lg border border-gray-200 shadow-md dark:bg-gray-800 dark:border-gray-700">
+                            class="p-6 bg-white rounded-lg border border-gray-200 shadow-md">
                             <h2 class="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white"><a
-                                    href="#">{{dish.name}}</a></h2>
-                            <p class="mb-5 font-light text-gray-500 dark:text-gray-400">{{dish.description}}</p>
-                            <div class="flex justify-between items-center">
-                                <div class="flex items-center space-x-4">
-                                    <span *ngIf="dish.availability" class="font-medium text-green-600">
+                                    >{{dish.name}}</a></h2>
+                                    <div class="flex items-center space-x-4">
+                                    <span *ngIf="dish.availability" class="font-medium font-bold text-green-600">
                                         Available
                                     </span>
-                                    <span *ngIf="!dish.availability" class="font-medium text-red-600">
+                                    <span *ngIf="!dish.availability" class="font-medium font-bold text-red-600">
                                         Unavailable
                                     </span>
-                                    <a *ngIf="role!='ROLE_HALL'" href="/dishes/{{dish.id}}/update" class="text-black font-bold text-lg hover:bg-gray-700 p-2 mt-8">
-                                        Update dish
-                                    </a>
-                                    <button *ngIf="role!='ROLE_HALL'" (click)="delete(dish.id)" class="text-red-400 font-bold text-lg hover:bg-gray-700 p-2 mt-8">
-                                        Delete dish
-                                    </button>
+                                    
                                 </div>
-                                <p class="text-black font-bold text-2xl hover:bg-gray-700 mt-8">{{dish.price}}$</p>
+                            <p class="mb-5 font-light text-gray-500 dark:text-gray-400">{{dish.description}}</p>
+                            <div class="flex justify-between items-center">
+    
+                                <a *ngIf="role!='ROLE_HALL'" href="/dishes/{{dish.id}}/update" class="text-black font-bold font-medium">
+                                    Update dish
+                                </a>
+                                <button *ngIf="role!='ROLE_HALL'" (click)="delete(dish.id)" class="text-red-400 font-bold font-medium">
+                                    Delete dish
+                                </button>
+                                <p class="text-black font-bold text-2xl">{{dish.price}}$</p>
                             </div>
                         </article>
                     </div>

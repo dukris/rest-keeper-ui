@@ -87,7 +87,7 @@ export class OrderService {
 
     changeStatus(id: any, status: any): Observable<any> {
         return this.http
-            .post(`http://localhost:8080/restkeeper/v1/orders/${id}/status`, { params: new HttpParams().set('status', status), withCredentials: true })
+            .post(`http://localhost:8080/restkeeper/v1/orders/${id}/status?status=${status}`, { withCredentials: true })
     }
 
     addDish(orderId: any, dishId: any, amount: any): Observable<any> {

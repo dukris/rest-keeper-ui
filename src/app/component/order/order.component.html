@@ -1,1 +1,136 @@
-<p>order works!</p>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Orders</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/tailwindcss/2.2.19/tailwind.min.css" rel="stylesheet">
+    <style>
+        @import url('https://fonts.googleapis.com/css?family=Karla:400,700&display=swap');
+
+        .font-family-karla {
+            font-family: karla;
+        }
+    </style>
+</head>
+
+<body class="bg-white font-family-karla h-screen">
+    <header>
+        <nav class="bg-white border-gray-200 px-4 lg:px-6 py-2.5 dark:bg-gray-800">
+            <div class="flex flex-wrap justify-between items-center mx-auto max-w-screen-xl">
+                <div class="flex justify-center md:justify-start">
+                    <a href="/home" class="bg-black text-white font-bold text-xl p-4">RestKeeper</a>
+                </div>
+                <div class="flex items-center lg:order-2">
+                    <a href="/profile/{{currentId}}"
+                        class="block font-bold py-2 pr-4 pl-3 text-sky-300 border-b border-gray-100 hover:bg-gray-50 lg:hover:bg-transparent lg:border-0 lg:hover:text-primary-700 lg:p-0">
+                        My profile</a>
+                </div>
+                <div class="hidden justify-between items-center w-full lg:flex lg:w-auto lg:order-1" id="mobile-menu-2">
+                    <ul class="flex flex-col mt-4 font-medium lg:flex-row lg:space-x-8 lg:mt-0">
+                        <li>
+                            <a href="/home"
+                                class="block font-bold py-2 pr-4 pl-3 text-black border-b border-gray-100 hover:bg-gray-50 lg:hover:bg-transparent lg:border-0 lg:hover:text-primary-700 lg:p-0"
+                                aria-current="page">
+                                Home</a>
+                        </li>
+                        <li *ngIf="role=='ROLE_ADMIN'">
+                            <a href="/employees"
+                                class="block font-bold py-2 pr-4 pl-3 text-black border-b border-gray-100 hover:bg-gray-50 lg:hover:bg-transparent lg:border-0 lg:hover:text-primary-700 lg:p-0">
+                                Employees</a>
+                        </li>
+                        <li>
+                            <a href="/orders"
+                                class="block font-bold py-2 pr-4 pl-3 text-black border-b border-gray-100 hover:bg-gray-50 lg:hover:bg-transparent lg:border-0 lg:hover:text-primary-700 lg:p-0">
+                                Orders</a>
+                        </li>
+                        <li>
+                            <a href="/dishes"
+                                class="block font-bold py-2 pr-4 pl-3 text-black border-b border-gray-100 hover:bg-gray-50 lg:hover:bg-transparent lg:border-0 lg:hover:text-primary-700 lg:p-0">
+                                Dishes</a>
+                        </li>
+                        <li *ngIf="role=='ROLE_ADMIN'">
+                            <a href="/statistics"
+                                class="block font-bold py-2 pr-4 pl-3 text-black border-b border-gray-100 hover:bg-gray-50 lg:hover:bg-transparent lg:border-0 lg:hover:text-primary-700 lg:p-0">
+                                Statistics</a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+    </header>
+    <div class="w-full flex flex-wrap">
+        <div class="w-full h-48 shadow-2xl">
+            <img class="object-cover w-full h-48 hidden md:block" src="https://source.unsplash.com/IXUM4cJynP0">
+        </div>
+    </div>
+    <div class="w-full flex flex-wrap">
+        <div class="w-full flex flex-col">
+            <p class="bg-black text-center text-white font-bold text-xl p-4">Orders</p>
+            <section class="p-2">
+                <div class="py-8 px-4 mx-auto max-w-screen-xl lg:py-16 lg:px-6">
+                    <div class="mx-auto max-w-screen-sm text-center mb-8 lg:mb-16">
+                        <h2 class="mb-4 text-4xl tracking-tight font-extrabold text-black dark:text-white">Orders</h2>
+                        <p class="font-light text-gray-500 lg:mb-16 sm:text-xl dark:text-gray-400">Explore the whole
+                            collection of open-source web components and elements built with the utility classes from
+                            Tailwind</p>
+                        <!-- <article class="border border-black">
+                            <h2 class="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white">
+                                Order #{{orderId}}
+                            </h2>
+                            <div class="p-3" *ngFor="let entry of this.order.dishAmountMap| keyvalue;">
+                                <p class="font-light text-gray-500 dark:text-gray-400">{{entry.key}}</p>
+                                <p class="text-black font-medium mt-2">Amount: {{entry.value}}</p>
+                            </div>
+                        </article> -->
+                        <a *ngIf="role!='ROLE_KITCHEN'" href="/orders/create" class="text-center bg-black text-white w-40 font-bold text-lg hover:bg-gray-700 p-2 mt-8">
+                            Create new order</a>
+                    </div>
+                    <div class="grid gap-8 mb-6 lg:mb-16 md:grid-cols-2">
+                        <div class="items-center bg-gray-50 rounded-lg shadow"
+                        *ngFor="let order of orders">
+                        <div class="p-5">
+                          
+                            <p class="text-black text-end text-sm mt-2">{{order.time}}</p>
+                            <h3 class="text-xl text-center font-bold tracking-tight text-gray-900">
+                                Order #{{order.id}}
+                            </h3>
+                            <hr>
+                            <h3 class="font-medium text-center font-bold tracking-tight text-green-600 p-2">
+                                {{order.status}}
+                            </h3>
+                            <hr>
+                            <h5 class="text-black text-center font-bold p-2">Table #{{order.tableNumber}}</h5>
+                            <h5 class="text-black text-center font-bold">Guests: {{order.amountOfGuests}}</h5>
+
+                            <div class="p-3" *ngFor="let entry of this.order.dishAmountMap| keyvalue;">
+                                <p class="font-light text-gray-500 dark:text-gray-400">{{entry.key}}</p>
+                                <p class="text-black font-medium mt-2">Amount: {{entry.value}}</p>
+                            </div>
+                            <h5 class="font-medium text-center tracking-tight text-gray-600">
+                                {{order.user.name}} {{order.user.surname}}
+                            </h5>
+                            <hr>
+                            <h3 class="text-2xl text-center font-bold tracking-tight text-black">
+                                {{order.cost}}$
+                            </h3>
+                            <button *ngIf="role!='ROLE_KITCHEN'" (click)="delete(order.id)" class="text-red-400 font-bold font-medium">
+                                Delete order
+                            </button>
+                        </div>
+                        <div class="text-center">
+                            <button *ngIf="role=='ROLE_KITCHEN' && order.status=='Received'" (click)="changeStatus(order.id, 'PROCESSING')" class="text-center bg-black text-white w-40 font-bold text-lg hover:bg-gray-700 p-2 mt-8 mb-4">
+                                Process
+                            </button>
+                            <button *ngIf="role=='ROLE_KITCHEN' && order.status=='Processing'" (click)="changeStatus(order.id, 'COOKED')" class="text-center bg-black text-white w-40 font-bold text-lg hover:bg-gray-700 p-2 mt-8 mb-4">
+                                Cooked
+                            </button>
+                            <button *ngIf="role!='ROLE_KITCHEN' && order.status=='Cooked'" (click)="changeStatus(order.id, 'COMPLETED')" class="text-center bg-black text-white w-40 font-bold text-lg hover:bg-gray-700 p-2 mt-8 mb-4">
+                                Complete
+                            </button>
+                        </div>
+                    </div>
+                    </div>
+                </div>
+            </section>
+        </div>
+    </div>
+</body>
