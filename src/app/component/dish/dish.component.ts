@@ -6,10 +6,10 @@ import { DishService } from 'src/app/service/DishService';
 
 @Component({
   selector: 'app-dishes',
-  templateUrl: './dishes.component.html',
-  styleUrls: ['./dishes.component.css']
+  templateUrl: './dish.component.html',
+  styleUrls: ['./dish.component.css']
 })
-export class DishesComponent implements OnInit {
+export class DishComponent implements OnInit {
   id!: string | null;
   role: string | null = " ";
   dishes: Dish[] = [];

@@ -7,7 +7,11 @@ import { EmployeeComponent } from './component/employee/employee.component';
 import { HomeComponent } from './component/home/home.component';
 import { ProfileUpdateComponent } from './component/profile-update/profile-update.component';
 import { StatisticsComponent } from './component/statistics/statistics.component';
-import { DishesComponent } from './component/dishes/dishes.component';
+import { DishComponent } from './component/dish/dish.component';
+import { DishUpdateComponent } from './component/dish-update/dish-update.component';
+import { DishCreateComponent } from './component/dish-create/dish-create.component';
+import { OrderCreateComponent } from './component/order-create/order-create.component';
+import { OrderSubmitComponent } from './component/order-submit/order-submit.component';
 
 const routes: Routes = [
   { path: 'login', component:  LoginComponent},
@@ -17,7 +21,11 @@ const routes: Routes = [
   { path: 'home', component:  HomeComponent},
   { path: 'profile/:id/update', component:  ProfileUpdateComponent},
   { path: 'statistics', component:  StatisticsComponent},
-  { path: 'dishes', component:  DishesComponent}
+  { path: 'dishes', component:  DishComponent},
+  { path: 'dishes/:id/update', component:  DishUpdateComponent},
+  { path: 'dishes/create', component:  DishCreateComponent},
+  { path: 'orders/create', component: OrderCreateComponent},
+  { path: 'orders/:id/submit', component: OrderSubmitComponent}
 ];
 
 @NgModule({

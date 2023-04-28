@@ -1,0 +1,58 @@
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dish</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/tailwindcss/2.2.19/tailwind.min.css" rel="stylesheet">
+    <style>
+        @import url('https://fonts.googleapis.com/css?family=Karla:400,700&display=swap');
+
+        .font-family-karla {
+            font-family: karla;
+        }
+    </style>
+</head>
+
+<body class="bg-white font-family-karla h-screen">
+    <div class="w-full flex flex-wrap">
+        <div class="w-full md:w-1/2 flex flex-col">
+            <div class="flex justify-center md:justify-start pt-12 md:pl-12 md:-mb-12">
+                <a href="/home" class="bg-black text-white font-bold text-xl p-4" alt="Logo">RestKeeper</a>
+            </div>
+            <div class="flex flex-col justify-center md:justify-start my-auto pt-8 md:pt-0 px-8 md:px-24 lg:px-32">
+                <p class="mb-4 text-center font-bold text-black text-3xl">New dish</p>
+                <p class="font-light text-center text-gray-500 lg:mb-16 sm:text-xl dark:text-gray-400">Explore the whole
+                    collection of open-source web components and elements built with the utility classes from
+                    Tailwind</p>
+                <form class="form" [formGroup]="createForm" (ngSubmit)="onSubmitForm()">
+                    <div class="flex flex-col pt-4">
+                        <label for="name" class="text-lg">Name</label>
+                        <input type="text" id="name" formControlName="name" placeholder="Pasta"
+                            class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 mt-1 leading-tight focus:outline-none focus:shadow-outline" />
+                    </div>
+                    <div class="flex flex-col pt-4">
+                        <label for="description" class="text-lg">Description</label>
+                        <input type="text" id="description" formControlName="description" placeholder="Tasty pasta..."
+                            class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 mt-1 leading-tight focus:outline-none focus:shadow-outline" />
+                    </div>
+                    <div class="flex flex-col pt-4">
+                        <label for="price" class="text-lg">Price</label>
+                        <input type="number" id="price" formControlName="price" placeholder="20"
+                            class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 mt-1 leading-tight focus:outline-none focus:shadow-outline" />
+                    </div>
+                    <div class="flex flex-col pt-4">
+                        <label for="availability" class="text-lg">Availability</label>
+                        <select id="availability" formControlName="availability" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 mt-1 leading-tight focus:outline-none focus:shadow-outline">
+                            <option value="true">Available</option>
+                            <option value="false">Unavailable</option>
+                          </select>
+                    </div>
+                    <input type="submit" value="Add" [disabled]=!createForm.valid class="bg-black text-white font-bold text-lg hover:bg-gray-700 p-2 mt-8" />
+                </form>
+            </div>
+        </div>
+        <div class="w-1/2 shadow-2xl">
+            <img class="object-cover w-full h-300 hidden md:block" src="https://source.unsplash.com/IXUM4cJynP0"
+                alt="Background" />
+        </div>
+    </div>
+</body>

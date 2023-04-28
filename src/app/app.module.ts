@@ -17,7 +17,13 @@ import { ProfileUpdateComponent } from './component/profile-update/profile-updat
 import { StatisticsComponent } from './component/statistics/statistics.component';
 import { DishService} from './service/DishService';
 import { StatisticsService } from './service/StatisticsService';
-import { DishesComponent } from './component/dishes/dishes.component';
+import { DishComponent } from './component/dish/dish.component';
+import { DishUpdateComponent } from './component/dish-update/dish-update.component';
+import { DishCreateComponent } from './component/dish-create/dish-create.component';
+import { OrderService } from './service/OrderService';
+import { OrderCreateComponent } from './component/order-create/order-create.component';
+import { OrderSubmitComponent } from './component/order-submit/order-submit.component';
+import { OrderComponent } from './component/order/order.component';
 
 
 
@@ -31,7 +37,12 @@ import { DishesComponent } from './component/dishes/dishes.component';
     HomeComponent,
     ProfileUpdateComponent,
     StatisticsComponent,
-    DishesComponent
+    DishComponent,
+    DishUpdateComponent,
+    DishCreateComponent,
+    OrderCreateComponent,
+    OrderSubmitComponent,
+    OrderComponent
   ],
   imports: [
     BrowserModule,
@@ -45,6 +56,7 @@ import { DishesComponent } from './component/dishes/dishes.component';
     UserService,
     DishService,
     StatisticsService,
+    OrderService,
     {provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true}  
   ],
   bootstrap: [AppComponent]

@@ -1,0 +1,96 @@
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My profile</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/tailwindcss/2.2.19/tailwind.min.css" rel="stylesheet">
+    <style>
+        @import url('https://fonts.googleapis.com/css?family=Karla:400,700&display=swap');
+
+        .font-family-karla {
+            font-family: karla;
+        }
+    </style>
+</head>
+
+<body class="bg-white font-family-karla h-screen">
+    <header>
+        <nav class="bg-white border-gray-200 px-4 lg:px-6 py-2.5 dark:bg-gray-800">
+            <div class="flex flex-wrap justify-between items-center mx-auto max-w-screen-xl">
+                <div class="flex justify-center md:justify-start">
+                    <a href="/home" class="bg-black text-white font-bold text-xl p-4">RestKeeper</a>
+                </div>
+                <div class="flex items-center lg:order-2">
+                    <a href="/profile/{{currentId}}"
+                        class="block font-bold py-2 pr-4 pl-3 text-sky-300 border-b border-gray-100 hover:bg-gray-50 lg:hover:bg-transparent lg:border-0 lg:hover:text-primary-700 lg:p-0">
+                        My profile</a>
+                </div>
+                <div class="hidden justify-between items-center w-full lg:flex lg:w-auto lg:order-1" id="mobile-menu-2">
+                    <ul class="flex flex-col mt-4 font-medium lg:flex-row lg:space-x-8 lg:mt-0">
+                        <li>
+                            <a href="/home"
+                                class="block font-bold py-2 pr-4 pl-3 text-black border-b border-gray-100 hover:bg-gray-50 lg:hover:bg-transparent lg:border-0 lg:hover:text-primary-700 lg:p-0"
+                                aria-current="page">
+                                Home</a>
+                        </li>
+                        <li *ngIf="role=='ROLE_ADMIN'">
+                            <a href="/employees"
+                                class="block font-bold py-2 pr-4 pl-3 text-black border-b border-gray-100 hover:bg-gray-50 lg:hover:bg-transparent lg:border-0 lg:hover:text-primary-700 lg:p-0">
+                                Employees</a>
+                        </li>
+                        <li>
+                            <a href="/orders"
+                                class="block font-bold py-2 pr-4 pl-3 text-black border-b border-gray-100 hover:bg-gray-50 lg:hover:bg-transparent lg:border-0 lg:hover:text-primary-700 lg:p-0">
+                                Orders</a>
+                        </li>
+                        <li>
+                            <a href="/dishes"
+                                class="block font-bold py-2 pr-4 pl-3 text-black border-b border-gray-100 hover:bg-gray-50 lg:hover:bg-transparent lg:border-0 lg:hover:text-primary-700 lg:p-0">
+                                Dishes</a>
+                        </li>
+                        <li *ngIf="role=='ROLE_ADMIN'">
+                            <a href="/statistics"
+                                class="block font-bold py-2 pr-4 pl-3 text-black border-b border-gray-100 hover:bg-gray-50 lg:hover:bg-transparent lg:border-0 lg:hover:text-primary-700 lg:p-0">
+                                Statistics</a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+    </header>
+    <div class="w-full flex flex-wrap">
+        <div class="w-full h-48 shadow-2xl">
+            <img class="object-cover w-full h-48 hidden md:block" src="https://source.unsplash.com/IXUM4cJynP0">
+        </div>
+        <div class="w-full flex flex-col">
+            <p class="bg-black text-center text-white font-bold text-xl p-4">Update dish</p>
+            <div class="flex flex-col justify-center md:justify-start my-auto pt-8 md:pt-0 px-8 md:px-24 lg:px-32">
+                <form class="form"  [formGroup]="updateForm" (ngSubmit)="onSubmitForm()">
+                    <div class="flex flex-col pt-4">
+                        <label for="name" class="text-lg">Name</label>
+                        <input type="text" id="name" formControlName="name" ngModel="{{dish.name}}"
+                            class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 mt-1 leading-tight focus:outline-none focus:shadow-outline" />
+                    </div>
+                    <div class="flex flex-col pt-4">
+                        <label for="description" class="text-lg">Description</label>
+                        <input type="text" id="description" formControlName="description" ngModel="{{dish.description}}"
+                            class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 mt-1 leading-tight focus:outline-none focus:shadow-outline" />
+                    </div>
+                    <div class="flex flex-col pt-4">
+                        <label for="price" class="text-lg">Price</label>
+                        <input type="number" id="price" formControlName="price" ngModel="{{dish.price}}"
+                            class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 mt-1 leading-tight focus:outline-none focus:shadow-outline" />
+                    </div>
+                    <div class="flex flex-col pt-4">
+                        <label for="availability" class="text-lg">Availability</label>
+                        <select id="availability" formControlName="availability" ngModel="{{dish.availability}}" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 mt-1 leading-tight focus:outline-none focus:shadow-outline">
+                            <option value="true">Available</option>
+                            <option value="false">Unavailable</option>
+                          </select>
+                    </div>
+                    <input type="submit" value="Save" [disabled]=!updateForm.valid class="bg-black text-white font-bold text-lg hover:bg-gray-700 p-2 mt-8">
+                    <a href="/dishes" class="text-center text-black font-bold text-xl p-4">Back</a>
+                </form>
+            </div>
+        </div>
+    </div>
+</body>
