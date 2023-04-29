@@ -49,14 +49,14 @@ export class ProfileUpdateComponent implements OnInit {
             });
           }
           if (response.status >= 500) {
-            alert("something happened on the server")
+            alert("Something happened on the server!")
           }
         }
       })
   }
 
   onSubmitForm() {
-    if (this.updateForm.get('photo') != null) {
+    if (this.updateForm.get('photo')?.value != null) {
       this.userService
         .addPhoto(this.updateForm, this.id)
         .subscribe({
@@ -70,7 +70,7 @@ export class ProfileUpdateComponent implements OnInit {
               });
             }
             if (response.status >= 500) {
-              alert("Something happened on the server")
+              alert("Something happened on the server!")
             }
           }
         })
@@ -89,7 +89,7 @@ export class ProfileUpdateComponent implements OnInit {
             });
           }
           if (response.status >= 500) {
-            alert("Something happened on the server")
+            alert("Something happened on the server!")
           }
         }
       })

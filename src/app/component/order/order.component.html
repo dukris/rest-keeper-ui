@@ -67,67 +67,122 @@
             <p class="bg-black text-center text-white font-bold text-xl p-4">Orders</p>
             <section class="p-2">
                 <div class="py-8 px-4 mx-auto max-w-screen-xl lg:py-16 lg:px-6">
-                    <div class="mx-auto max-w-screen-sm text-center mb-8 lg:mb-16">
+                    <div class="mx-auto max-w-screen-sm text-center mb-4 lg:mb-8">
                         <h2 class="mb-4 text-4xl tracking-tight font-extrabold text-black dark:text-white">Orders</h2>
                         <p class="font-light text-gray-500 lg:mb-16 sm:text-xl dark:text-gray-400">Explore the whole
                             collection of open-source web components and elements built with the utility classes from
                             Tailwind</p>
-                        <!-- <article class="border border-black">
-                            <h2 class="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white">
-                                Order #{{orderId}}
-                            </h2>
-                            <div class="p-3" *ngFor="let entry of this.order.dishAmountMap| keyvalue;">
-                                <p class="font-light text-gray-500 dark:text-gray-400">{{entry.key}}</p>
-                                <p class="text-black font-medium mt-2">Amount: {{entry.value}}</p>
-                            </div>
-                        </article> -->
-                        <a *ngIf="role!='ROLE_KITCHEN'" href="/orders/create" class="text-center bg-black text-white w-40 font-bold text-lg hover:bg-gray-700 p-2 mt-8">
+                        <a *ngIf="role!='ROLE_KITCHEN'" href="/orders/create"
+                            class="text-center bg-black text-white w-40 font-bold text-lg hover:bg-gray-700 p-2 mt-8">
                             Create new order</a>
                     </div>
-                    <div class="grid gap-8 mb-6 lg:mb-16 md:grid-cols-2">
-                        <div class="items-center bg-gray-50 rounded-lg shadow"
-                        *ngFor="let order of orders">
-                        <div class="p-5">
-                          
-                            <p class="text-black text-end text-sm mt-2">{{order.time}}</p>
-                            <h3 class="text-xl text-center font-bold tracking-tight text-gray-900">
-                                Order #{{order.id}}
-                            </h3>
-                            <hr>
-                            <h3 class="font-medium text-center font-bold tracking-tight text-green-600 p-2">
-                                {{order.status}}
-                            </h3>
-                            <hr>
-                            <h5 class="text-black text-center font-bold p-2">Table #{{order.tableNumber}}</h5>
-                            <h5 class="text-black text-center font-bold">Guests: {{order.amountOfGuests}}</h5>
-
-                            <div class="p-3" *ngFor="let entry of this.order.dishAmountMap| keyvalue;">
-                                <p class="font-light text-gray-500 dark:text-gray-400">{{entry.key}}</p>
-                                <p class="text-black font-medium mt-2">Amount: {{entry.value}}</p>
+                    <form class="form">
+                        <div class="p-4">
+                            <p class="font-light text-gray-500 sm:text-xl">Here you can choose the filter...</p>
+                            <select #device id="role" formControlName="searchRole"
+                                class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 mt-1 leading-tight focus:outline-none focus:shadow-outline">
+                                <option value="All">All</option>
+                                <option value="ROLE_ADMIN">Administration</option>
+                                <option value="ROLE_HALL">Hall</option>
+                                <option value="ROLE_KITCHEN">Kitchen</option>
+                            </select>
+                        </div>
+                    </form>
+                    <div class="grid gap-4 mb-2 lg:mb-2 md:grid-cols-6 p-4" *ngFor="let order of orders">
+                        <div *ngIf="order.status!='Completed'"
+                            class="items-center border border-gray-200 shadow-md rounded-lg shadow col-start-2 col-span-4">
+                            <div class="grid gap-4 md:grid-cols-2">
+                                <button *ngIf="role!='ROLE_KITCHEN'" (click)="delete(order.id)"
+                                    class="text-red-400 text-start text-sm m-2 m-2 font-bold">Delete
+                                </button>
+                                <p class="text-black text-end text-sm m-2">{{order.time}}</p>
                             </div>
-                            <h5 class="font-medium text-center tracking-tight text-gray-600">
-                                {{order.user.name}} {{order.user.surname}}
-                            </h5>
-                            <hr>
-                            <h3 class="text-2xl text-center font-bold tracking-tight text-black">
-                                {{order.cost}}$
-                            </h3>
-                            <button *ngIf="role!='ROLE_KITCHEN'" (click)="delete(order.id)" class="text-red-400 font-bold font-medium">
-                                Delete order
-                            </button>
+                            <div class="p-3">
+                                <h3 class="text-2xl text-center font-bold tracking-tight text-gray-900">
+                                    Order #{{order.id}}
+                                </h3>
+                                <hr>
+                                <h3 *ngIf="order.status=='Received'"
+                                    class="font-medium text-center font-bold tracking-tight text-orange-400 p-2">
+                                    {{order.status}}
+                                </h3>
+                                <h3 *ngIf="order.status=='Cooked'"
+                                    class="font-medium text-center font-bold tracking-tight text-sky-600 p-2">
+                                    {{order.status}}
+                                </h3>
+                                <h3 *ngIf="order.status=='Processing'"
+                                    class="font-medium text-center font-bold tracking-tight text-purple-700 p-2">
+                                    {{order.status}}
+                                </h3>
+                                <hr>
+                                <h5 class="text-black text-center font-bold p-2">Table #{{order.tableNumber}}</h5>
+                                <h5 class="text-black text-center font-bold">Guests: {{order.amountOfGuests}}</h5>
+
+                                <div class="p-3" *ngFor="let entry of this.order.dishAmountMap| keyvalue;">
+                                    <p class="font-light text-gray-500 dark:text-gray-400">{{entry.key}}</p>
+                                    <p class="text-black font-medium mt-2">Amount: {{entry.value}}</p>
+                                </div>
+                                <h5 class="font-medium text-center tracking-tight text-gray-600">
+                                    {{order.user.name}} {{order.user.surname}}
+                                </h5>
+                                <hr>
+                                <h3 class="text-2xl text-center font-bold tracking-tight text-black">
+                                    {{order.cost}}$
+                                </h3>
+                            </div>
+                            <div class="text-center">
+                                <button *ngIf="role=='ROLE_KITCHEN' && order.status=='Received'"
+                                    (click)="changeStatus(order.id, 'PROCESSING')"
+                                    class="text-center bg-black text-white w-40 font-bold text-lg hover:bg-gray-700 p-2 mt-8 mb-4">
+                                    Process
+                                </button>
+                                <button *ngIf="role=='ROLE_KITCHEN' && order.status=='Processing'"
+                                    (click)="changeStatus(order.id, 'COOKED')"
+                                    class="text-center bg-black text-white w-40 font-bold text-lg hover:bg-gray-700 p-2 mt-8 mb-4">
+                                    Cooked
+                                </button>
+                                <button *ngIf="role!='ROLE_KITCHEN' && order.status=='Cooked'"
+                                    (click)="changeStatus(order.id, 'COMPLETED')"
+                                    class="text-center bg-black text-white w-40 font-bold text-lg hover:bg-gray-700 p-2 mt-8 mb-4">
+                                    Complete
+                                </button>
+                            </div>
                         </div>
-                        <div class="text-center">
-                            <button *ngIf="role=='ROLE_KITCHEN' && order.status=='Received'" (click)="changeStatus(order.id, 'PROCESSING')" class="text-center bg-black text-white w-40 font-bold text-lg hover:bg-gray-700 p-2 mt-8 mb-4">
-                                Process
-                            </button>
-                            <button *ngIf="role=='ROLE_KITCHEN' && order.status=='Processing'" (click)="changeStatus(order.id, 'COOKED')" class="text-center bg-black text-white w-40 font-bold text-lg hover:bg-gray-700 p-2 mt-8 mb-4">
-                                Cooked
-                            </button>
-                            <button *ngIf="role!='ROLE_KITCHEN' && order.status=='Cooked'" (click)="changeStatus(order.id, 'COMPLETED')" class="text-center bg-black text-white w-40 font-bold text-lg hover:bg-gray-700 p-2 mt-8 mb-4">
-                                Complete
-                            </button>
+                        <div *ngIf="order.status=='Completed'"
+                            class="items-center border border-gray-200 bg-gray-50 shadow-md rounded-lg shadow col-start-2 col-span-4">
+                            <div class="grid gap-4 md:grid-cols-2">
+                                <button *ngIf="role!='ROLE_KITCHEN'" (click)="delete(order.id)"
+                                    class="text-red-400 text-start text-sm m-2 m-2 font-bold">Delete
+                                </button>
+                                <p class="text-black text-end text-sm m-2">{{order.time}}</p>
+                            </div>
+                            <div class="p-3">
+                                <h3 class="text-2xl text-center font-bold tracking-tight text-gray-900">
+                                    Order #{{order.id}}
+                                </h3>
+                                <hr>
+                                <h3 *ngIf="order.status=='Completed'"
+                                    class="font-medium text-center font-bold tracking-tight text-green-600 p-2">
+                                    {{order.status}}
+                                </h3>
+                                <hr>
+                                <h5 class="text-black text-center font-bold p-2">Table #{{order.tableNumber}}</h5>
+                                <h5 class="text-black text-center font-bold">Guests: {{order.amountOfGuests}}</h5>
+
+                                <div class="p-3" *ngFor="let entry of this.order.dishAmountMap| keyvalue;">
+                                    <p class="font-light text-gray-500 dark:text-gray-400">{{entry.key}}</p>
+                                    <p class="text-black font-medium mt-2">Amount: {{entry.value}}</p>
+                                </div>
+                                <h5 class="font-medium text-center tracking-tight text-gray-600">
+                                    {{order.user.name}} {{order.user.surname}}
+                                </h5>
+                                <hr>
+                                <h3 class="text-2xl text-center font-bold tracking-tight text-black">
+                                    {{order.cost}}$
+                                </h3>
+                            
+                            </div>
                         </div>
-                    </div>
                     </div>
                 </div>
             </section>

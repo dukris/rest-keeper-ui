@@ -63,33 +63,39 @@
         </div>
         <div class="w-full flex flex-col">
             <p class="bg-black text-center text-white font-bold text-xl p-4">Update dish</p>
-            <div class="flex flex-col justify-center md:justify-start my-auto pt-8 md:pt-0 px-8 md:px-24 lg:px-32">
-                <form class="form"  [formGroup]="updateForm" (ngSubmit)="onSubmitForm()">
-                    <div class="flex flex-col pt-4">
-                        <label for="name" class="text-lg">Name</label>
-                        <input type="text" id="name" formControlName="name" ngModel="{{dish.name}}"
-                            class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 mt-1 leading-tight focus:outline-none focus:shadow-outline" />
-                    </div>
-                    <div class="flex flex-col pt-4">
-                        <label for="description" class="text-lg">Description</label>
-                        <input type="text" id="description" formControlName="description" ngModel="{{dish.description}}"
-                            class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 mt-1 leading-tight focus:outline-none focus:shadow-outline" />
-                    </div>
-                    <div class="flex flex-col pt-4">
-                        <label for="price" class="text-lg">Price</label>
-                        <input type="number" id="price" formControlName="price" ngModel="{{dish.price}}"
-                            class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 mt-1 leading-tight focus:outline-none focus:shadow-outline" />
-                    </div>
-                    <div class="flex flex-col pt-4">
-                        <label for="availability" class="text-lg">Availability</label>
-                        <select id="availability" formControlName="availability" ngModel="{{dish.availability}}" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 mt-1 leading-tight focus:outline-none focus:shadow-outline">
-                            <option value="true">Available</option>
-                            <option value="false">Unavailable</option>
-                          </select>
-                    </div>
-                    <input type="submit" value="Save" [disabled]=!updateForm.valid class="bg-black text-white font-bold text-lg hover:bg-gray-700 p-2 mt-8">
-                    <a href="/dishes" class="text-center text-black font-bold text-xl p-4">Back</a>
-                </form>
+            <div class="grid gap-8 mb-6 lg:mb-16 md:grid-cols-6">
+                <div class="flex flex-col justify-center md:justify-start my-auto pt-8 md:pt-0 px-8 md:px-24 lg:px-32  col-start-2 col-span-4">
+                    <form class="form" [formGroup]="updateForm" (ngSubmit)="onSubmitForm()">
+                        <div class="flex flex-col pt-4">
+                            <label for="name" class="text-lg">Name</label>
+                            <input type="text" id="name" formControlName="name" ngModel="{{dish.name}}"
+                                class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 mt-1 leading-tight focus:outline-none focus:shadow-outline" />
+                        </div>
+                        <div class="flex flex-col pt-4">
+                            <label for="description" class="text-lg">Description</label>
+
+                            <textarea type="text" rows="5" id="description" formControlName="description"
+                                ngModel="{{dish.description}}"
+                                class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 mt-1 leading-tight focus:outline-none focus:shadow-outline"></textarea>
+                        </div>
+                        <div class="flex flex-col pt-4">
+                            <label for="price" class="text-lg">Price</label>
+                            <input type="number" id="price" formControlName="price" ngModel="{{dish.price}}"
+                                class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 mt-1 leading-tight focus:outline-none focus:shadow-outline" />
+                        </div>
+                        <div class="flex flex-col pt-4">
+                            <label for="availability" class="text-lg">Availability</label>
+                            <select id="availability" formControlName="availability" ngModel="{{dish.availability}}"
+                                class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 mt-1 leading-tight focus:outline-none focus:shadow-outline">
+                                <option value="true">Available</option>
+                                <option value="false">Unavailable</option>
+                            </select>
+                        </div>
+                        <input type="submit" value="Save" [disabled]=!updateForm.valid
+                            class="bg-black text-white font-bold text-lg hover:bg-gray-700 p-2 mt-8">
+                        <a href="/dishes" class="text-center text-black font-bold text-xl p-4">Back</a>
+                    </form>
+                </div>
             </div>
         </div>
     </div>

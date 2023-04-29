@@ -73,10 +73,11 @@
                         <p class="font-light text-gray-500 lg:mb-16 sm:text-xl dark:text-gray-400">Explore the whole
                             collection of open-source web components and elements built with the utility classes from
                             Tailwind</p>
-                        <article class="border border-black">
+                        <article class="bg-gray-50 rounded-lg border border-gray-200 shadow-md">
                             <h2 class="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white">
                                 Order #{{orderId}}
                             </h2>
+                            <hr>
                             <div class="p-3" *ngFor="let entry of this.order.dishAmountMap| keyvalue;">
                                 <p class="font-light text-gray-500 dark:text-gray-400">{{entry.key}}</p>
                                 <p class="text-black font-medium mt-2">Amount: {{entry.value}}</p>
@@ -94,31 +95,26 @@
                             <p class="mb-5 font-light text-gray-500 dark:text-gray-400">{{dish.description}}</p>
                             <div class="flex justify-between items-center">
                                 <div class="flex items-center space-x-4">
-                                    <span *ngIf="dish.availability" class="font-medium text-green-600">
-                                        Available
-                                    </span>
-                                    <span *ngIf="!dish.availability" class="font-medium text-red-600">
-                                        Unavailable
-                                    </span>
+                                    <form class="form" [formGroup]="amountForm">
+                                       
+                                        <div class="form-group">
+                                            <label for="amount" class="font-light text-gray-500 font-medium">Amount:</label>
+                                            <!-- <select #device (change)="addDish(dish.id, device.value)" id="amount" formControlName="amount"
+                                                class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 mt-1 leading-tight focus:outline-none focus:shadow-outline">
+                                                <option value="0">0</option>
+                                                <option value="1">1</option>
+                                                <option value="2">2</option>
+                                                <option value="3">3</option>
+                                                <option value="4">4</option>
+                                                <option value="5">5</option>
+                                            </select> -->
+                                            <input type="number" #device (change)="addDish(dish.id, device.value)" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 mt-1 leading-tight focus:outline-none focus:shadow-outline">
+                                        </div>
+                                    </form>
                                 </div>
-                                <p class="text-black font-bold text-2xl hover:bg-gray-700 mt-8">{{dish.price}}$</p>
-
-                                
+                                <p class="text-black font-bold text-2xl mt-8">{{dish.price}}$</p>
                             </div>
-                            <form class="form" [formGroup]="amountForm">
-                                <div class="p-4">
-                                    <p class="font-light text-gray-500 sm:text-xl">Amount</p>
-                                    <select #device (change)="addDish(dish.id, device.value)" id="amount" formControlName="amount"
-                                        class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 mt-1 leading-tight focus:outline-none focus:shadow-outline">
-                                        <option value="0">0</option>
-                                        <option value="1">1</option>
-                                        <option value="2">2</option>
-                                        <option value="3">3</option>
-                                        <option value="4">4</option>
-                                        <option value="5">5</option>
-                                    </select>
-                                </div>
-                            </form>
+                    
                         </article>
                     </div>
                 </div>

@@ -67,7 +67,7 @@
             <p class="bg-black text-center text-white font-bold text-xl p-4">Dishes</p>
             <section class="p-2">
                 <div class="py-8 px-4 mx-auto max-w-screen-xl lg:py-16 lg:px-6">
-                    <div class="mx-auto max-w-screen-sm text-center mb-8 lg:mb-16">
+                    <div class="mx-auto max-w-screen-sm text-center mb-8 lg:mb-8">
                         <h2 class="mb-4 text-4xl tracking-tight font-extrabold text-black dark:text-white">Menu</h2>
                         <p class="font-light text-gray-500 lg:mb-16 sm:text-xl dark:text-gray-400">Explore the whole
                             collection of open-source web components and elements built with the utility classes from
@@ -87,29 +87,62 @@
                         </div>
                     </form>
                     <div class="grid gap-8 mb-6 lg:mb-16 md:grid-cols-2">
-                        <article *ngFor="let dish of dishes"
-                            class="p-6 bg-white rounded-lg border border-gray-200 shadow-md">
-                            <h2 class="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white"><a
-                                    >{{dish.name}}</a></h2>
-                                    <div class="flex items-center space-x-4">
+                        <article *ngFor="let dish of dishes">
+                            <div *ngIf="!dish.availability"
+                                class="p-6 bg-gray-100 rounded-lg border border-gray-200 shadow-md">
+                                <h2 class="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white">
+                                    <a>{{dish.name}}</a></h2>
+                                <div class="flex items-center space-x-4">
                                     <span *ngIf="dish.availability" class="font-medium font-bold text-green-600">
                                         Available
                                     </span>
                                     <span *ngIf="!dish.availability" class="font-medium font-bold text-red-600">
                                         Unavailable
                                     </span>
-                                    
+
                                 </div>
-                            <p class="mb-5 font-light text-gray-500 dark:text-gray-400">{{dish.description}}</p>
-                            <div class="flex justify-between items-center">
-    
-                                <a *ngIf="role!='ROLE_HALL'" href="/dishes/{{dish.id}}/update" class="text-black font-bold font-medium">
-                                    Update dish
-                                </a>
-                                <button *ngIf="role!='ROLE_HALL'" (click)="delete(dish.id)" class="text-red-400 font-bold font-medium">
+                                <p class="mb-5 font-light text-gray-500 dark:text-gray-400">{{dish.description}}</p>
+                                
+                                <div class="flex justify-between items-center">
+
+                                    <a *ngIf="role!='ROLE_HALL'" href="/dishes/{{dish.id}}/update"
+                                        class="text-black font-bold font-medium">
+                                        Update dish
+                                    </a>
+                                    <button *ngIf="role!='ROLE_HALL'" (click)="delete(dish.id)"
+                                    class="text-red-600 text-end font-bold font-medium">
                                     Delete dish
                                 </button>
-                                <p class="text-black font-bold text-2xl">{{dish.price}}$</p>
+                                    <p class="text-black font-bold text-2xl">{{dish.price}}$</p>
+                                </div>
+                            </div>
+                            <div *ngIf="dish.availability"
+                                class="p-6 bg-white rounded-lg border border-gray-200 shadow-md">
+                                <h2 class="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white">
+                                    <a>{{dish.name}}</a></h2>
+                                <div class="flex items-center space-x-4">
+                                    <span *ngIf="dish.availability" class="font-medium font-bold text-green-600">
+                                        Available
+                                    </span>
+                                    <span *ngIf="!dish.availability" class="font-medium font-bold text-red-600">
+                                        Unavailable
+                                    </span>
+
+                                </div>
+                                <p class="mb-5 font-light text-gray-500 dark:text-gray-400">{{dish.description}}</p>
+                              
+                                <div class="flex justify-between items-center">
+
+                                    <a *ngIf="role!='ROLE_HALL'" href="/dishes/{{dish.id}}/update"
+                                        class="text-black font-bold font-medium">
+                                        Update dish
+                                    </a>
+                                    <button *ngIf="role=='ROLE_ADMIN'" (click)="delete(dish.id)"
+                                        class="text-red-600 font-bold font-medium">
+                                        Delete dish
+                                    </button>
+                                    <p class="text-black font-bold text-2xl">{{dish.price}}$</p>
+                                </div>
                             </div>
                         </article>
                     </div>

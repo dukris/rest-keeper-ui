@@ -45,7 +45,7 @@ export class UserService {
             updateForm.get('street')?.value,
             updateForm.get('house')?.value,
             updateForm.get('flat')?.value
-        )
+        );
         let user = new User(
             id,
             updateForm.get('name')?.value,
@@ -58,7 +58,7 @@ export class UserService {
             null,
             null,
             address
-        )
+        );
         user.id = id;
         return this.http
             .put(`http://localhost:8080/restkeeper/v1/users/${id}`, user, { withCredentials: true })

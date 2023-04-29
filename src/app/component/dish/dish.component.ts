@@ -30,6 +30,16 @@ export class DishComponent implements OnInit {
           this.id = localStorage.getItem('userId');
           this.role = localStorage.getItem('roleName');
           this.dishes = res;
+          this.dishes.sort((n1,n2) => {
+            if (n2.availability) {
+                return 1;
+            }
+        
+            if (n1.availability) {
+                return -1;
+            }
+            return 0;
+        });
         },
         error: (response) => {
           if (response.status === 400 || response.status === 401 || response.status === 404) {
@@ -71,6 +81,16 @@ export class DishComponent implements OnInit {
           this.id = localStorage.getItem('userId');
           this.role = localStorage.getItem('roleName');
           this.dishes = res;
+          this.dishes.sort((n1,n2) => {
+            if (n2.availability) {
+                return 1;
+            }
+        
+            if (n1.availability) {
+                return -1;
+            }
+            return 0;
+        });
         },
         error: (response) => {
           if (response.status === 400 || response.status === 401 || response.status === 404) {

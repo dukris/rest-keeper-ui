@@ -63,21 +63,24 @@
         </div>
         <div class="w-full flex flex-col">
             <p class="bg-black text-center text-white font-bold text-xl p-4">Create new order</p>
-            <div class="flex flex-col justify-center md:justify-start my-auto pt-8 md:pt-0 px-8 md:px-24 lg:px-32">
-                <form class="form"  [formGroup]="createForm" (ngSubmit)="onSubmitForm()">
-                    <div class="flex flex-col pt-4">
-                        <label for="tableNumber" class="text-lg">Number of table</label>
-                        <input type="number" id="tableNumber" formControlName="tableNumber" placeholder="1"
-                            class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 mt-1 leading-tight focus:outline-none focus:shadow-outline" />
-                    </div>
-                    <div class="flex flex-col pt-4">
-                        <label for="amountOfGuests" class="text-lg">Amount of guests</label>
-                        <input type="number" id="amountOfGuests" formControlName="amountOfGuests" placeholder="2"
-                            class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 mt-1 leading-tight focus:outline-none focus:shadow-outline" />
-                    </div>
-                    <input type="submit" value="Save" [disabled]=!createForm.valid class="bg-black text-white font-bold text-lg hover:bg-gray-700 p-2 mt-8">
-                    <a href="/orders" class="text-center text-black font-bold text-xl p-4">Back</a>
-                </form>
+            <div class="grid gap-8 mb-6 lg:mb-16 md:grid-cols-6">
+                <div class="flex flex-col justify-center md:justify-start my-auto pt-8 md:pt-0 px-8 md:px-24 lg:px-32  col-start-2 col-span-4">
+                    <form class="form" [formGroup]="createForm" (ngSubmit)="onSubmitForm()">
+                        <div class="flex flex-col pt-4">
+                            <label for="tableNumber" class="text-lg">Number of table</label>
+                            <input type="number" id="tableNumber" formControlName="tableNumber" placeholder="1"
+                                class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 mt-1 leading-tight focus:outline-none focus:shadow-outline" />
+                        </div>
+                        <div class="flex flex-col pt-4">
+                            <label for="amountOfGuests" class="text-lg">Amount of guests</label>
+                            <input type="number" id="amountOfGuests" formControlName="amountOfGuests" placeholder="2"
+                                class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 mt-1 leading-tight focus:outline-none focus:shadow-outline" />
+                        </div>
+                        <input type="submit" value="Save" [disabled]=!createForm.valid
+                            class="bg-black text-white font-bold text-lg hover:bg-gray-700 p-2 mt-8">
+                        <a href="/orders" class="text-center text-black font-bold text-xl p-4">Back</a>
+                    </form>
+                </div>
             </div>
         </div>
     </div>

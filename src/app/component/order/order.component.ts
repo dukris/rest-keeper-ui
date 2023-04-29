@@ -49,6 +49,18 @@ export class OrderComponent implements OnInit {
               };
             }
           });
+          this.orders.sort((n1,n2) => {
+            if (n2.status=='Received') {
+                return 1;
+            }
+            if (n1.status=='Received') {
+                return -1;
+            }
+            if (n1.status=='Completed') {
+              return -1;
+            }
+            return 0;
+        });
         },
         error: (response) => {
           if (response.status === 400 || response.status === 401 || response.status === 404) {
