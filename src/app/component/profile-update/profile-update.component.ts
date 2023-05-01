@@ -3,6 +3,7 @@ import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { Router, ActivatedRoute } from '@angular/router';
 import { User } from 'src/app/model/user';
 import { UserService } from 'src/app/service/UserService';
+import Cookies from 'universal-cookie';
 
 @Component({
   selector: 'app-profile-update',
@@ -15,13 +16,14 @@ export class ProfileUpdateComponent implements OnInit {
   user!: User;
   currentId!: string | null;
   role: string | null = localStorage.getItem('roleName');
+  cookies: Cookies = new Cookies();
   updateForm = new FormGroup({
     name: new FormControl('', [Validators.required, Validators.minLength(2), Validators.maxLength(50)]),
     surname: new FormControl('', [Validators.required, Validators.minLength(2), Validators.maxLength(50)]),
     passport: new FormControl('', [Validators.required, Validators.minLength(2), Validators.maxLength(50)]),
     dateOfBirth: new FormControl('', [Validators.required]),
     phoneNumber: new FormControl('', [Validators.required, Validators.pattern(/[789][0-9]{9}/)]),
-    city: new FormControl('', [Validators.required, Validators.minLength(2), Validators.maxLength(50)]),
+    city: new FormControl('', [Validators.required]),
     street: new FormControl('', [Validators.required, Validators.minLength(2), Validators.maxLength(50)]),
     house: new FormControl('', [Validators.required]),
     flat: new FormControl(''),
@@ -34,6 +36,11 @@ export class ProfileUpdateComponent implements OnInit {
     private route: ActivatedRoute) { }
 
   ngOnInit(): void {
+    if (this.cookies.get('access') == null) {
+      localStorage.removeItem('userId')
+      localStorage.removeItem('roleName')
+      this.router.navigate(["/login"]);
+    }
     this.currentId = localStorage.getItem("userId");
     this.route.params.subscribe(params => this.id = params['id']);
     this.userService
@@ -56,7 +63,7 @@ export class ProfileUpdateComponent implements OnInit {
   }
 
   onSubmitForm() {
-    if (this.updateForm.get('photo')?.value != null) {
+    if (this.updateForm.get('photo') != null) {
       this.userService
         .addPhoto(this.updateForm, this.id)
         .subscribe({
@@ -93,6 +100,14 @@ export class ProfileUpdateComponent implements OnInit {
           }
         }
       })
+  }
+
+  logout(){
+    localStorage.removeItem('userId')
+    localStorage.removeItem('roleName')
+    this.cookies.remove('access');
+    this.cookies.remove('refresh');
+    this.router.navigate(["/login"]);
   }
 
 }

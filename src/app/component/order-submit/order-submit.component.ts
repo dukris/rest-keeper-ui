@@ -6,6 +6,7 @@ import { Dish } from 'src/app/model/dish';
 import { Order } from 'src/app/model/order';
 import { DishService } from 'src/app/service/DishService';
 import { OrderService } from 'src/app/service/OrderService';
+import Cookies from 'universal-cookie';
 
 @Component({
   selector: 'app-order-submit',
@@ -18,6 +19,7 @@ export class OrderSubmitComponent implements OnInit {
   orderId!: string;
   order!: Order;
   dishes: Dish[] = [];
+  cookies: Cookies = new Cookies();
 
   amountForm = new FormGroup({
     amount: new FormControl('', [Validators.required])
@@ -30,6 +32,11 @@ export class OrderSubmitComponent implements OnInit {
     private dishService: DishService) { }
 
   ngOnInit(): void {
+    if (this.cookies.get('access') == null) {
+      localStorage.removeItem('userId')
+      localStorage.removeItem('roleName')
+      this.router.navigate(["/login"]);
+    }
     this.route.params.subscribe(params => this.orderId = params['id']);
     this.orderService
       .getById(this.orderId)
@@ -129,6 +136,15 @@ export class OrderSubmitComponent implements OnInit {
         }
       })
   }
+
+  logout(){
+    localStorage.removeItem('userId')
+    localStorage.removeItem('roleName')
+    this.cookies.remove('access');
+    this.cookies.remove('refresh');
+    this.router.navigate(["/login"]);
+  }
+  
 
 }
 

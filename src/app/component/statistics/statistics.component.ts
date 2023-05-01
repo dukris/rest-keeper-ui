@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { StatisticsService } from 'src/app/service/StatisticsService';
 import { Statistics } from 'src/app/model/statistics';
+import Cookies from 'universal-cookie';
 
 @Component({
   selector: 'app-statistics',
@@ -12,6 +13,7 @@ export class StatisticsComponent implements OnInit {
   statistics!: Statistics;
   currentId!: string | null;
   role: string | null = localStorage.getItem('roleName');
+  cookies: Cookies = new Cookies();
 
   constructor(
     private route: ActivatedRoute,
@@ -19,6 +21,11 @@ export class StatisticsComponent implements OnInit {
     private router: Router) { }
 
   ngOnInit(): void {
+    if (this.cookies.get('access') == null) {
+      localStorage.removeItem('userId')
+      localStorage.removeItem('roleName')
+      this.router.navigate(["/login"]);
+    }
     this.currentId = localStorage.getItem("userId");
     this.statisticsService
       .get()
@@ -37,6 +44,14 @@ export class StatisticsComponent implements OnInit {
           }
         }
       })
+  }
+
+  logout(){
+    localStorage.removeItem('userId')
+    localStorage.removeItem('roleName')
+    this.cookies.remove('access');
+    this.cookies.remove('refresh');
+    this.router.navigate(["/login"]);
   }
 
 }

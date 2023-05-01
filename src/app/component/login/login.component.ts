@@ -11,6 +11,7 @@ import Cookies from 'universal-cookie';
 })
 export class LoginComponent implements OnInit {
 
+  cookies: Cookies = new Cookies();
   loginForm = new FormGroup({
     email: new FormControl('', [Validators.pattern(/.+@.+\.[a-zA-Z0-9]+/i), Validators.required]),
     password: new FormControl('', [Validators.required, Validators.minLength(8), Validators.maxLength(20)])
@@ -19,6 +20,10 @@ export class LoginComponent implements OnInit {
   constructor(private authApi: AuthApiService, private router: Router) { }
 
   ngOnInit(): void {
+    localStorage.removeItem('userId')
+    localStorage.removeItem('roleName')
+    this.cookies.remove('access');
+    this.cookies.remove('refresh');
   }
 
   onSubmitForm() {
@@ -28,8 +33,7 @@ export class LoginComponent implements OnInit {
         next: (res) => {
           localStorage.removeItem('userId')
           localStorage.removeItem('roleName')
-          const cookies = new Cookies();
-          cookies.set('access', res.accessToken, { path: '/', expires: new Date(Number(res.expTime)) });
+          this.cookies.set('access', res.accessToken, { path: '/', expires: new Date(Number(res.expTime)) });
           localStorage.setItem('userId', res.userId);
           localStorage.setItem('roleName', res.roleName);
           this.router.navigate([`/profile/${res.userId}`]);

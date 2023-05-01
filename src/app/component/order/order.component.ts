@@ -3,6 +3,7 @@ import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { Router, ActivatedRoute } from '@angular/router';
 import { Order } from 'src/app/model/order';
 import { OrderService } from 'src/app/service/OrderService';
+import Cookies from 'universal-cookie';
 
 @Component({
   selector: 'app-order',
@@ -13,9 +14,11 @@ export class OrderComponent implements OnInit {
   currentId: string | null = localStorage.getItem("userId");
   role: string | null = localStorage.getItem('roleName');
   orders: Order[] = [];
-  createForm = new FormGroup({
-    tableNumber: new FormControl('', [Validators.required]),
-    amountOfGuests: new FormControl('', [Validators.required])
+  cookies: Cookies = new Cookies();
+  searchForm = new FormGroup({
+    from: new FormControl('', [Validators.required]),
+    to: new FormControl('', [Validators.required]),
+    status: new FormControl('')
   })
 
   constructor(
@@ -24,6 +27,11 @@ export class OrderComponent implements OnInit {
     private route: ActivatedRoute) { }
 
   ngOnInit(): void {
+    if (this.cookies.get('access') == null) {
+      localStorage.removeItem('userId')
+      localStorage.removeItem('roleName')
+      this.router.navigate(["/login"]);
+    }
     this.orderService
       .getAll()
       .subscribe({
@@ -50,16 +58,10 @@ export class OrderComponent implements OnInit {
             }
           });
           this.orders.sort((n1,n2) => {
-            if (n2.status=='Received') {
-                return 1;
-            }
-            if (n1.status=='Received') {
-                return -1;
-            }
-            if (n1.status=='Completed') {
+            if (n2.status=='Completed') {
               return -1;
             }
-            return 0;
+            return 1;
         });
         },
         error: (response) => {
@@ -77,11 +79,37 @@ export class OrderComponent implements OnInit {
 
   onSubmitForm() {
     this.orderService
-      .create(this.createForm, this.currentId)
+      .getByCriteria(this.searchForm)
       .subscribe({
         next: (res) => {
-          this.router.navigate([`/orders/${res.id}/submit`]);
-          alert("New order is created sucessfully!")
+          this.orders = res;
+          console.log(res);
+          this.orders.forEach(order => {
+            switch (order.status) {
+              case 'RECEIVED': {
+                order.status = "Received";
+                break;
+              };
+              case 'PROCESSING': {
+                order.status = "Processing";
+                break;
+              };
+              case 'COOKED': {
+                order.status = "Cooked";
+                break;
+              };
+              case 'COMPLETED': {
+                order.status = "Completed";
+                break;
+              };
+            }
+          });
+          this.orders.sort((n1,n2) => {
+            if (n2.status=='Completed') {
+              return -1;
+            }
+            return 1;
+        });
         },
         error: (response) => {
           if (response.status === 400 || response.status === 401 || response.status === 404) {
@@ -136,6 +164,14 @@ export class OrderComponent implements OnInit {
         }
       }
     })
+  }
+
+  logout(){
+    localStorage.removeItem('userId')
+    localStorage.removeItem('roleName')
+    this.cookies.remove('access');
+    this.cookies.remove('refresh');
+    this.router.navigate(["/login"]);
   }
 
 }

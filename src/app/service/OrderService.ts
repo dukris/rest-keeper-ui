@@ -18,7 +18,20 @@ export class OrderService {
             .get(`http://localhost:8080/restkeeper/v1/orders`, { withCredentials: true });
     }
 
-    getByPeriod(from: any, to: any): Observable<any> {
+    getByCriteria(searchForm: FormGroup): Observable<any> {
+        let from = searchForm.get('from')?.value;
+        let to = searchForm.get('to')?.value;
+        let status = searchForm.get('status')?.value;
+        if (status == 'All') {
+            return this.http
+                .get(`http://localhost:8080/restkeeper/v1/orders?from=${from}&to=${to}`, { withCredentials: true });
+        }
+        return this.http
+            .get(`http://localhost:8080/restkeeper/v1/orders?from=${from}&to=${to}&status=${status}`, { withCredentials: true });
+
+    }
+
+    getByPeriod(from: any, to: any, status: any): Observable<any> {
         let params = new HttpParams();
         params.set('from', from);
         params.set('to', to);
@@ -27,10 +40,8 @@ export class OrderService {
     }
 
     getByStatus(status: any): Observable<any> {
-        let params = new HttpParams();
-        params.set('status', status);
         return this.http
-            .get(`http://localhost:8080/restkeeper/v1/orders`, { params: params, withCredentials: true });
+            .get(`http://localhost:8080/restkeeper/v1/orders?status=${status}`, { withCredentials: true });
     }
 
     getByPeriodAndStatus(from: any, to: any, status: any): Observable<any> {
@@ -92,8 +103,8 @@ export class OrderService {
 
     addDish(orderId: any, dishId: any, amount: any): Observable<any> {
         return this.http
-            .post(`http://localhost:8080/restkeeper/v1/orders/${orderId}/dishes/${dishId}?amount=${amount}`, 
-            { withCredentials: true })
+            .post(`http://localhost:8080/restkeeper/v1/orders/${orderId}/dishes/${dishId}?amount=${amount}`,
+                { withCredentials: true })
     }
 
     submit(id: any): Observable<any> {

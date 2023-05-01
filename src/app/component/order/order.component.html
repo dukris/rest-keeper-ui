@@ -23,6 +23,9 @@
                     <a href="/profile/{{currentId}}"
                         class="block font-bold py-2 pr-4 pl-3 text-sky-300 border-b border-gray-100 hover:bg-gray-50 lg:hover:bg-transparent lg:border-0 lg:hover:text-primary-700 lg:p-0">
                         My profile</a>
+                    <button (click)="logout()"
+                        class="block font-bold py-2 ml-16 pr-4 pl-3 text-vlack border-b border-gray-100 hover:bg-gray-50 lg:hover:bg-transparent lg:border-0 lg:hover:text-primary-700 lg:p-0">
+                        Log Out</button>
                 </div>
                 <div class="hidden justify-between items-center w-full lg:flex lg:w-auto lg:order-1" id="mobile-menu-2">
                     <ul class="flex flex-col mt-4 font-medium lg:flex-row lg:space-x-8 lg:mt-0">
@@ -76,7 +79,7 @@
                             class="text-center bg-black text-white w-40 font-bold text-lg hover:bg-gray-700 p-2 mt-8">
                             Create new order</a>
                     </div>
-                    <form class="form">
+                    <!-- <form class="form">
                         <div class="p-4">
                             <p class="font-light text-gray-500 sm:text-xl">Here you can choose the filter...</p>
                             <select #device id="role" formControlName="searchRole"
@@ -87,15 +90,46 @@
                                 <option value="ROLE_KITCHEN">Kitchen</option>
                             </select>
                         </div>
+                    </form> -->
+                    <form class="form" [formGroup]="searchForm" (ngSubmit)="onSubmitForm()">
+                        <div class="flex flex-wrap">
+                            <div class="relative w-full grid gap-4 mb-2 lg:mb-2 md:grid-cols-6">
+                                <div date-rangepicker class="flex items-center col-start-2 col-span-4">
+                                    <span class="mx-4 text-gray-500">From</span>
+                                    <div class="relative">
+                                        <input name="from" type="date" formControlName="from"
+                                            class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full pl-10 p-2.5  dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                                            placeholder="Select date start">
+                                    </div>
+                                    <span class="mx-4 text-gray-500">to</span>
+                                    <div class="relative">
+                                        <input name="to" type="date" formControlName="to"
+                                            class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full pl-10 p-2.5  dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                                            placeholder="Select date end">
+                                    </div>
+                                    <div class="mx-4 relative w-48">
+                                        <select id="status" formControlName="status"
+                                        class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full pl-10 p-2.5  dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
+                                        <option value="All">All</option>
+                                        <option value="RECEIVED">Received</option>
+                                            <option value="PROCESSING">Processing</option>
+                                            <option value="COOKED">Cooked</option>
+                                            <option value="COMPLETED">Completed</option>
+                                        </select>
+                                    </div>
+                                    <button [disabled]=!searchForm.valid type="submit" class="font-bold">Search</button>
+                                </div>
+                            </div>
+                        </div>
                     </form>
                     <div class="grid gap-4 mb-2 lg:mb-2 md:grid-cols-6 p-4" *ngFor="let order of orders">
                         <div *ngIf="order.status!='Completed'"
                             class="items-center border border-gray-200 shadow-md rounded-lg shadow col-start-2 col-span-4">
                             <div class="grid gap-4 md:grid-cols-2">
                                 <button *ngIf="role!='ROLE_KITCHEN'" (click)="delete(order.id)"
-                                    class="text-red-400 text-start text-sm m-2 m-2 font-bold">Delete
+                                    class="text-white bg-red-600 w-12 text-center text-sm m-2 m-2 font-bold">Delete
                                 </button>
-                                <p class="text-black text-end text-sm m-2">{{order.time}}</p>
+                                <p class="text-black text-end text-sm m-2 col-start-2">{{order.time}}</p>
                             </div>
                             <div class="p-3">
                                 <h3 class="text-2xl text-center font-bold tracking-tight text-gray-900">
@@ -152,7 +186,7 @@
                             class="items-center border border-gray-200 bg-gray-50 shadow-md rounded-lg shadow col-start-2 col-span-4">
                             <div class="grid gap-4 md:grid-cols-2">
                                 <button *ngIf="role!='ROLE_KITCHEN'" (click)="delete(order.id)"
-                                    class="text-red-400 text-start text-sm m-2 m-2 font-bold">Delete
+                                    class="text-white bg-red-600 w-12 text-center text-sm m-2 m-2 font-bold">Delete
                                 </button>
                                 <p class="text-black text-end text-sm m-2">{{order.time}}</p>
                             </div>
@@ -180,7 +214,7 @@
                                 <h3 class="text-2xl text-center font-bold tracking-tight text-black">
                                     {{order.cost}}$
                                 </h3>
-                            
+
                             </div>
                         </div>
                     </div>

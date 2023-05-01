@@ -23,6 +23,9 @@
                     <a href="/profile/{{currentId}}"
                         class="block font-bold py-2 pr-4 pl-3 text-sky-300 border-b border-gray-100 hover:bg-gray-50 lg:hover:bg-transparent lg:border-0 lg:hover:text-primary-700 lg:p-0">
                         My profile</a>
+                        <button (click)="logout()"
+                        class="block font-bold py-2 ml-16 pr-4 pl-3 text-vlack border-b border-gray-100 hover:bg-gray-50 lg:hover:bg-transparent lg:border-0 lg:hover:text-primary-700 lg:p-0">
+                        Log Out</button>
                 </div>
                 <div class="hidden justify-between items-center w-full lg:flex lg:w-auto lg:order-1" id="mobile-menu-2">
                     <ul class="flex flex-col mt-4 font-medium lg:flex-row lg:space-x-8 lg:mt-0">
@@ -70,31 +73,31 @@
                         <div class="flex flex-col pt-4">
                             <label for="name" class="text-lg">Name</label>
                             <input type="text" id="name" formControlName="name" placeholder="John"
-                                ngModel="{{user.name}}"
+                                ngModel="{{user.name}}" required
                                 class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 mt-1 leading-tight focus:outline-none focus:shadow-outline" />
                         </div>
                         <div class="flex flex-col pt-4">
                             <label for="surname" class="text-lg">Surname</label>
                             <input type="text" id="surname" formControlName="surname" placeholder="Smith"
-                                ngModel="{{user.surname}}"
+                                ngModel="{{user.surname}}" required
                                 class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 mt-1 leading-tight focus:outline-none focus:shadow-outline" />
                         </div>
                         <div class="flex flex-col pt-4">
                             <label for="passport" class="text-lg">Passport</label>
                             <input type="text" id="passport" formControlName="passport" placeholder="Passport"
-                                ngModel="{{user.passport}}"
+                                ngModel="{{user.passport}}" required
                                 class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 mt-1 leading-tight focus:outline-none focus:shadow-outline" />
                         </div>
                         <div class="flex flex-col pt-4">
                             <label for="dateOfBirth" class="text-lg">Date of birth</label>
                             <input type="date" id="dateOfBirth" formControlName="dateOfBirth" placeholder="Date"
-                                ngModel="{{user.dateOfBirth}}"
+                                ngModel="{{user.dateOfBirth}}" required
                                 class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 mt-1 leading-tight focus:outline-none focus:shadow-outline" />
                         </div>
                         <div class="flex flex-col pt-4">
                             <label for="phoneNumber" class="text-lg">Phone number</label>
                             <input type="text" id="phoneNumber" formControlName="phoneNumber" placeholder="Phone number"
-                                ngModel="{{user.phoneNumber}}"
+                                ngModel="{{user.phoneNumber}}" required
                                 class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 mt-1 leading-tight focus:outline-none focus:shadow-outline" />
                         </div>
                         <div class="error" *ngIf="updateForm.controls['phoneNumber'].errors?.['pattern']">
@@ -107,7 +110,7 @@
                         </div>
                         <div class="flex flex-col pt-4">
                             <label for="city" class="text-lg">City</label>
-                            <select id="city" formControlName="city" ngModel="{{user.address.city}}"
+                            <select id="city" required formControlName="city" ngModel="{{user.address.city}}"
                                 class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 mt-1 leading-tight focus:outline-none focus:shadow-outline">
                                 <option value="Minsk">Minsk</option>
                                 <option value="Moscow">Moscow</option>
@@ -120,18 +123,18 @@
                         <div class="flex flex-col pt-4">
                             <label for="street" class="text-lg">Street</label>
                             <input type="text" id="street" formControlName="street" ngModel="{{user.address.street}}"
-                                placeholder="Street"
+                                placeholder="Street" required
                                 class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 mt-1 leading-tight focus:outline-none focus:shadow-outline">
                         </div>
                         <div class="flex flex-col pt-4">
                             <label for="house" class="text-lg">House</label>
-                            <input type="number" id="house" formControlName="house" placeholder="House"
-                                ngModel="{{user.address.house}}"
+                            <input type="number" id="house" formControlName="house" placeholder="12"
+                                ngModel="{{user.address.house}}" required
                                 class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 mt-1 leading-tight focus:outline-none focus:shadow-outline">
                         </div>
                         <div class="flex flex-col pt-4">
                             <label for="flat" class="text-lg">Flat</label>
-                            <input type="number" id="flat" formControlName="flat" placeholder="Flat"
+                            <input type="number" id="flat" formControlName="flat" placeholder="35"
                                 ngModel="{{user.address.flat}}"
                                 class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 mt-1 leading-tight focus:outline-none focus:shadow-outline">
                         </div>

@@ -3,6 +3,7 @@ import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { Dish } from 'src/app/model/dish';
 import { DishService } from 'src/app/service/DishService';
+import Cookies from 'universal-cookie';
 
 @Component({
   selector: 'app-dishes',
@@ -13,6 +14,7 @@ export class DishComponent implements OnInit {
   id!: string | null;
   role: string | null = " ";
   dishes: Dish[] = [];
+  cookies: Cookies = new Cookies();
 
   searchForm = new FormGroup({
     availability: new FormControl('', [Validators.required])
@@ -23,6 +25,11 @@ export class DishComponent implements OnInit {
     private dishService: DishService) { }
 
   ngOnInit(): void {
+    if (this.cookies.get('access') == null) {
+      localStorage.removeItem('userId')
+      localStorage.removeItem('roleName')
+      this.router.navigate(["/login"]);
+    }
     this.dishService
       .getAll()
       .subscribe({
@@ -30,16 +37,16 @@ export class DishComponent implements OnInit {
           this.id = localStorage.getItem('userId');
           this.role = localStorage.getItem('roleName');
           this.dishes = res;
-          this.dishes.sort((n1,n2) => {
+          this.dishes.sort((n1, n2) => {
             if (n2.availability) {
-                return 1;
+              return 1;
             }
-        
+
             if (n1.availability) {
-                return -1;
+              return -1;
             }
             return 0;
-        });
+          });
         },
         error: (response) => {
           if (response.status === 400 || response.status === 401 || response.status === 404) {
@@ -48,7 +55,7 @@ export class DishComponent implements OnInit {
             });
           }
           if (response.status >= 500) {
-            alert("something happened on the server")
+            alert("Something happened on the server!")
           }
         }
       })
@@ -75,34 +82,34 @@ export class DishComponent implements OnInit {
         })
     } else {
       this.dishService
-      .getAll()
-      .subscribe({
-        next: (res) => {
-          this.id = localStorage.getItem('userId');
-          this.role = localStorage.getItem('roleName');
-          this.dishes = res;
-          this.dishes.sort((n1,n2) => {
-            if (n2.availability) {
+        .getAll()
+        .subscribe({
+          next: (res) => {
+            this.id = localStorage.getItem('userId');
+            this.role = localStorage.getItem('roleName');
+            this.dishes = res;
+            this.dishes.sort((n1, n2) => {
+              if (n2.availability) {
                 return 1;
-            }
-        
-            if (n1.availability) {
+              }
+
+              if (n1.availability) {
                 return -1;
-            }
-            return 0;
-        });
-        },
-        error: (response) => {
-          if (response.status === 400 || response.status === 401 || response.status === 404) {
-            Object.values(response.error.errors).map((message) => {
-              alert(message);
+              }
+              return 0;
             });
+          },
+          error: (response) => {
+            if (response.status === 400 || response.status === 401 || response.status === 404) {
+              Object.values(response.error.errors).map((message) => {
+                alert(message);
+              });
+            }
+            if (response.status >= 500) {
+              alert("something happened on the server")
+            }
           }
-          if (response.status >= 500) {
-            alert("something happened on the server")
-          }
-        }
-      })
+        })
     }
   }
 
@@ -126,4 +133,13 @@ export class DishComponent implements OnInit {
         }
       })
   }
+
+  logout() {
+    localStorage.removeItem('userId')
+    localStorage.removeItem('roleName')
+    this.cookies.remove('access');
+    this.cookies.remove('refresh');
+    this.router.navigate(["/login"]);
+  }
+
 }

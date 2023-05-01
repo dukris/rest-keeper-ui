@@ -4,6 +4,7 @@ import { Router } from '@angular/router';
 import { AuthApiService } from '../../service/AuthApiService';
 import { UserService } from 'src/app/service/UserService';
 import { User } from 'src/app/model/user';
+import Cookies from 'universal-cookie';
 
 @Component({
   selector: 'app-employee',
@@ -14,6 +15,7 @@ export class EmployeeComponent implements OnInit {
   id!: string | null;
   role: string | null = " ";
   users: User[] = [];
+  cookies: Cookies = new Cookies();
 
   surnameForm = new FormGroup({
     searchSurname: new FormControl('', [Validators.required])
@@ -28,6 +30,11 @@ export class EmployeeComponent implements OnInit {
     private userService: UserService) { }
 
   ngOnInit(): void {
+    if (this.cookies.get('access') == null) {
+      localStorage.removeItem('userId')
+      localStorage.removeItem('roleName')
+      this.router.navigate(["/login"]);
+    }
     this.userService
       .getAll()
       .subscribe({
@@ -143,5 +150,12 @@ export class EmployeeComponent implements OnInit {
           }
         })
     }
+  }
+  logout(){
+    localStorage.removeItem('userId')
+    localStorage.removeItem('roleName')
+    this.cookies.remove('access');
+    this.cookies.remove('refresh');
+    this.router.navigate(["/login"]);
   }
 }

@@ -3,6 +3,7 @@ import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { Router, ActivatedRoute } from '@angular/router';
 import { Order } from 'src/app/model/order';
 import { OrderService } from 'src/app/service/OrderService';
+import Cookies from 'universal-cookie';
 
 @Component({
   selector: 'app-order-create',
@@ -13,6 +14,7 @@ export class OrderCreateComponent implements OnInit {
   currentId: string | null = localStorage.getItem("userId");
   role: string | null = localStorage.getItem('roleName');
   order!: Order;
+  cookies: Cookies = new Cookies();
   createForm = new FormGroup({
     tableNumber: new FormControl('', [Validators.required]),
     amountOfGuests: new FormControl('', [Validators.required])
@@ -24,6 +26,11 @@ export class OrderCreateComponent implements OnInit {
     private route: ActivatedRoute) { }
 
   ngOnInit(): void {
+    if (this.cookies.get('access') == null) {
+      localStorage.removeItem('userId')
+      localStorage.removeItem('roleName')
+      this.router.navigate(["/login"]);
+    }
   }
 
   onSubmitForm() {
@@ -45,6 +52,14 @@ export class OrderCreateComponent implements OnInit {
           }
         }
       })
+  }
+
+  logout(){
+    localStorage.removeItem('userId')
+    localStorage.removeItem('roleName')
+    this.cookies.remove('access');
+    this.cookies.remove('refresh');
+    this.router.navigate(["/login"]);
   }
 
 }
