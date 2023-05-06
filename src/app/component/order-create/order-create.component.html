@@ -23,7 +23,7 @@
                     <a href="/profile/{{currentId}}"
                         class="block font-bold py-2 pr-4 pl-3 text-sky-300 border-b border-gray-100 hover:bg-gray-50 lg:hover:bg-transparent lg:border-0 lg:hover:text-primary-700 lg:p-0">
                         My profile</a>
-                        <button (click)="logout()"
+                    <button (click)="logout()"
                         class="block font-bold py-2 ml-16 pr-4 pl-3 text-vlack border-b border-gray-100 hover:bg-gray-50 lg:hover:bg-transparent lg:border-0 lg:hover:text-primary-700 lg:p-0">
                         Log Out</button>
                 </div>
@@ -67,20 +67,30 @@
         <div class="w-full flex flex-col">
             <p class="bg-black text-center text-white font-bold text-xl p-4">Create new order</p>
             <div class="grid gap-8 mb-6 lg:mb-16 md:grid-cols-6">
-                <div class="flex flex-col justify-center md:justify-start my-auto pt-8 md:pt-0 px-8 md:px-24 lg:px-32  col-start-2 col-span-4">
+                <div
+                    class="flex flex-col justify-center md:justify-start my-auto pt-8 md:pt-0 px-8 md:px-24 lg:px-32  col-start-2 col-span-4">
                     <form class="form" [formGroup]="createForm" (ngSubmit)="onSubmitForm()">
                         <div class="flex flex-col pt-4">
                             <label for="tableNumber" class="text-lg">Number of table</label>
-                            <input type="number" id="tableNumber" formControlName="tableNumber" placeholder="1"
+                            <input type="number" id="tableNumber" formControlName="tableNumber" placeholder="1" min="1"
                                 class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 mt-1 leading-tight focus:outline-none focus:shadow-outline" />
+                        </div>
+                        <div class="text-red-600 text-sm"
+                            *ngIf="createForm.controls['tableNumber'].errors?.['required'] && (createForm.controls['tableNumber']?.touched || createForm.controls['tableNumber']?.dirty)">
+                            Field is required!
                         </div>
                         <div class="flex flex-col pt-4">
                             <label for="amountOfGuests" class="text-lg">Amount of guests</label>
                             <input type="number" id="amountOfGuests" formControlName="amountOfGuests" placeholder="2"
+                                min="1"
                                 class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 mt-1 leading-tight focus:outline-none focus:shadow-outline" />
                         </div>
-                        <input type="submit" value="Save" [disabled]=!createForm.valid
-                            class="bg-black text-white font-bold text-lg hover:bg-gray-700 p-2 mt-8">
+                        <div class="text-red-600 text-sm"
+                        *ngIf="createForm.controls['amountOfGuests'].errors?.['required'] && (createForm.controls['amountOfGuests']?.touched || createForm.controls['amountOfGuests']?.dirty)">
+                        Field is required!
+                    </div>
+                        <input type="submit" value="Save" [disabled]="!createForm.valid"
+                            class="bg-black text-white font-bold text-lg hover:bg-gray-700 p-2 mt-8 disabled:bg-gray-400">
                         <a href="/orders" class="text-center text-black font-bold text-xl p-4">Back</a>
                     </form>
                 </div>

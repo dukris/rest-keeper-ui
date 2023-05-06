@@ -24,6 +24,7 @@ import { OrderService } from './service/OrderService';
 import { OrderCreateComponent } from './component/order-create/order-create.component';
 import { OrderSubmitComponent } from './component/order-submit/order-submit.component';
 import { OrderComponent } from './component/order/order.component';
+import { PasswordUpdateComponent } from './component/password-update/password-update.component';
 
 
 
@@ -42,7 +43,8 @@ import { OrderComponent } from './component/order/order.component';
     DishCreateComponent,
     OrderCreateComponent,
     OrderSubmitComponent,
-    OrderComponent
+    OrderComponent,
+    PasswordUpdateComponent
   ],
   imports: [
     BrowserModule,

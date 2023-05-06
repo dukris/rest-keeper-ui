@@ -27,7 +27,7 @@ export class AuthApiService {
     let id = localStorage.getItem('userId');
     let auth = JSON.stringify(updatePasswordForm.getRawValue())
     return this.http
-      .post(`http://localhost:8080/restkeeper/v1/users/${id}/password/update`, auth, { withCredentials: true })
+      .post(`http://localhost:8080/restkeeper/v1/auth/users/${id}/password/update`, auth, { withCredentials: true })
   }
 
   updateFromRefresh(): Observable<any> {

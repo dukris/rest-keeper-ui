@@ -13,12 +13,12 @@ export class RegistrationComponent implements OnInit{
 
   id!: string | null;
   registerForm = new FormGroup({
-    name: new FormControl('', [Validators.required]),
-    surname: new FormControl('', [Validators.required]),
+    name: new FormControl('', [Validators.required, Validators.minLength(2), Validators.maxLength(50)]),
+    surname: new FormControl('', [Validators.required, Validators.minLength(2), Validators.maxLength(50)]),
     email: new FormControl('', [Validators.pattern(/.+@.+\.[a-zA-Z0-9]+/i), Validators.required]),
-    passport: new FormControl('', [Validators.required]),
+    passport: new FormControl('', [Validators.required, Validators.minLength(8), Validators.maxLength(20)]),
     role: new FormControl('', [Validators.required]),
-    password: new FormControl('', [Validators.required])
+    password: new FormControl('', [Validators.required, Validators.minLength(8), Validators.maxLength(20)])
   })
   
   constructor(private authApi: AuthApiService, private router: Router) { }
@@ -37,9 +37,7 @@ export class RegistrationComponent implements OnInit{
       },
       error: (response) => {
         if (response.status === 400|| response.status === 401 || response.status === 404){
-         Object.values( response.error.errors).map((message) => {
-               alert(message);
-           });        
+          alert(response.error.msg)    
       }
       if (response.status >= 500) {
          alert("something happened on the server")

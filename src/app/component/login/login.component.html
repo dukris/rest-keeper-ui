@@ -11,6 +11,7 @@
         }
     </style>
 </head>
+
 <body class="bg-white font-family-karla h-screen">
     <div class="w-full flex flex-wrap">
         <div class="w-full md:w-1/2 flex flex-col">
@@ -19,21 +20,38 @@
             </div>
             <div class="flex flex-col justify-center md:justify-start my-auto pt-8 md:pt-0 px-8 md:px-24 lg:px-32">
                 <p class="text-center text-3xl">Welcome</p>
-                <form class="form"  [formGroup]="loginForm" (ngSubmit)="onSubmitForm()">
+                <form class="form" [formGroup]="loginForm" (ngSubmit)="onSubmitForm()">
                     <div class="flex flex-col pt-4">
                         <label for="email" class="text-lg">Email</label>
-                        <input type="email" id="email" formControlName="email" placeholder="example@email.com" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 mt-1 leading-tight focus:outline-none focus:shadow-outline">
+                        <input type="email" id="email" formControlName="email" required placeholder="example@email.com"
+                            class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 mt-1 leading-tight focus:outline-none focus:shadow-outline">
                     </div>
-
-                    <div class="error" *ngIf="loginForm.controls['email'].errors?.['pattern']">
+                    <div class="text-red-600 text-sm"
+                        *ngIf="loginForm.controls['email'].errors?.['required'] && (loginForm.controls['email']?.touched || loginForm.controls['email']?.dirty)">
+                        Field is required!
+                    </div>
+                    <div class="text-red-600 text-sm" *ngIf="loginForm.controls['email'].errors?.['pattern']">
                         Wrong email!
                     </div>
-
                     <div class="flex flex-col pt-4">
                         <label for="password" class="text-lg">Password</label>
-                        <input type="password" id="password" formControlName="password" placeholder="********" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 mt-1 leading-tight focus:outline-none focus:shadow-outline">
+                        <input type="password" required id="password" formControlName="password" placeholder="********"
+                            class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 mt-1 leading-tight focus:outline-none focus:shadow-outline">
                     </div>
-                    <input type="submit" value="Log In" [disabled]=!loginForm.valid class="bg-black text-white font-bold text-lg hover:bg-gray-700 p-2 mt-8">
+                    <div class="text-red-600 text-sm"
+                        *ngIf="loginForm.controls['password'].errors?.['required'] && (loginForm.controls['password']?.touched || loginForm.controls['password']?.dirty)">
+                        Field is required!
+                    </div>
+                    <div class="text-red-600 text-sm"
+                        *ngIf="loginForm.controls['password'].errors?.['minlength'] && (loginForm.controls['password']?.touched || loginForm.controls['password']?.dirty)">
+                        Password must contain at least 8 characters!
+                    </div>
+                    <div class="text-red-600 text-sm"
+                        *ngIf="loginForm.controls['password'].errors?.['maxlength'] && (loginForm.controls['password']?.touched || loginForm.controls['password']?.dirty)">
+                        Password must contain maximum 20 characters!
+                    </div>
+                    <input type="submit" value="Log In" [disabled]="!loginForm.valid"
+                        class="bg-black text-white font-bold text-lg hover:bg-gray-700 p-2 mt-8 disabled:bg-gray-400">
                 </form>
             </div>
         </div>

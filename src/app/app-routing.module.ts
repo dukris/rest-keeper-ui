@@ -13,6 +13,7 @@ import { DishCreateComponent } from './component/dish-create/dish-create.compone
 import { OrderCreateComponent } from './component/order-create/order-create.component';
 import { OrderSubmitComponent } from './component/order-submit/order-submit.component';
 import { OrderComponent } from './component/order/order.component';
+import { PasswordUpdateComponent } from './component/password-update/password-update.component';
 
 const routes: Routes = [
   { path: 'login', component:  LoginComponent},
@@ -27,7 +28,8 @@ const routes: Routes = [
   { path: 'dishes/create', component:  DishCreateComponent},
   { path: 'orders/create', component: OrderCreateComponent},
   { path: 'orders/:id/submit', component: OrderSubmitComponent},
-  { path: 'orders', component: OrderComponent}
+  { path: 'orders', component: OrderComponent},
+  { path: 'profile/:id/refresh', component: PasswordUpdateComponent}
 ];
 
 @NgModule({

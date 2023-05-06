@@ -51,9 +51,7 @@ export class ProfileUpdateComponent implements OnInit {
         },
         error: (response) => {
           if (response.status === 400 || response.status === 401 || response.status === 404) {
-            Object.values(response.error.errors).map((message) => {
-              alert(message);
-            });
+            alert(response.error.msg)
           }
           if (response.status >= 500) {
             alert("Something happened on the server!")
@@ -72,9 +70,7 @@ export class ProfileUpdateComponent implements OnInit {
           },
           error: (response) => {
             if (response.status === 400 || response.status === 401 || response.status === 404) {
-              Object.values(response.error.errors).map((message) => {
-                alert(message);
-              });
+              alert(response.error.msg)
             }
             if (response.status >= 500) {
               alert("Something happened on the server!")
@@ -91,9 +87,7 @@ export class ProfileUpdateComponent implements OnInit {
         },
         error: (response) => {
           if (response.status === 400 || response.status === 401 || response.status === 404) {
-            Object.values(response.error.errors).map((message) => {
-              alert(message);
-            });
+            alert(response.error.msg)
           }
           if (response.status >= 500) {
             alert("Something happened on the server!")

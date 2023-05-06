@@ -99,19 +99,9 @@
                             <div class="flex justify-between items-center">
                                 <div class="flex items-center space-x-4">
                                     <form class="form" [formGroup]="amountForm">
-                                       
                                         <div class="form-group">
                                             <label for="amount" class="font-light text-gray-500 font-medium">Amount:</label>
-                                            <!-- <select #device (change)="addDish(dish.id, device.value)" id="amount" formControlName="amount"
-                                                class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 mt-1 leading-tight focus:outline-none focus:shadow-outline">
-                                                <option value="0">0</option>
-                                                <option value="1">1</option>
-                                                <option value="2">2</option>
-                                                <option value="3">3</option>
-                                                <option value="4">4</option>
-                                                <option value="5">5</option>
-                                            </select> -->
-                                            <input type="number" #device (change)="addDish(dish.id, device.value)" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 mt-1 leading-tight focus:outline-none focus:shadow-outline">
+                                            <input type="number" min="0" #device (change)="addDish(dish.id, device.value)" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 mt-1 leading-tight focus:outline-none focus:shadow-outline">
                                         </div>
                                     </form>
                                 </div>

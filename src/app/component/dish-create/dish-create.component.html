@@ -26,27 +26,62 @@
                 <form class="form" [formGroup]="createForm" (ngSubmit)="onSubmitForm()">
                     <div class="flex flex-col pt-4">
                         <label for="name" class="text-lg">Name</label>
-                        <input type="text" id="name" formControlName="name" placeholder="Pasta"
+                        <input type="text" id="name" formControlName="name" placeholder="Pasta" required
                             class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 mt-1 leading-tight focus:outline-none focus:shadow-outline" />
+                    </div>
+                    <div class="text-red-600 text-sm"
+                        *ngIf="createForm.controls['name'].errors?.['required'] && (createForm.controls['name']?.touched || createForm.controls['name']?.dirty)">
+                        Field is required!
+                    </div>
+                    <div class="text-red-600 text-sm"
+                        *ngIf="createForm.controls['name'].errors?.['minlength'] && (createForm.controls['name']?.touched || createForm.controls['name']?.dirty)">
+                        Name of dish must contain at least 2 characters!
+                    </div>
+                    <div class="text-red-600 text-sm"
+                        *ngIf="createForm.controls['name'].errors?.['maxlength'] && (createForm.controls['name']?.touched || createForm.controls['name']?.dirty)">
+                        Name of dish must contain maximum 50 characters!
                     </div>
                     <div class="flex flex-col pt-4">
                         <label for="description" class="text-lg">Description</label>
-                        <textarea type="text" id="description" formControlName="description" placeholder="Tasty pasta..."
+                        <textarea type="text" id="description" formControlName="description" required
+                            placeholder="Tasty pasta..."
                             class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 mt-1 leading-tight focus:outline-none focus:shadow-outline"></textarea>
+                    </div>
+                    <div class="text-red-600 text-sm"
+                        *ngIf="createForm.controls['description'].errors?.['required'] && (createForm.controls['description']?.touched || createForm.controls['description']?.dirty)">
+                        Field is required!
+                    </div>
+                    <div class="text-red-600 text-sm"
+                        *ngIf="createForm.controls['description'].errors?.['minlength'] && (createForm.controls['description']?.touched || createForm.controls['description']?.dirty)">
+                        Description must contain at least 2 characters!
+                    </div>
+                    <div class="text-red-600 text-sm"
+                        *ngIf="createForm.controls['description'].errors?.['maxlength'] && (createForm.controls['description']?.touched || createForm.controls['description']?.dirty)">
+                        Description must contain maximum 200 characters!
                     </div>
                     <div class="flex flex-col pt-4">
                         <label for="price" class="text-lg">Price</label>
-                        <input type="number" id="price" formControlName="price" placeholder="20"
+                        <input type="number" id="price" formControlName="price" placeholder="20" required min="1"
                             class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 mt-1 leading-tight focus:outline-none focus:shadow-outline" />
+                    </div>
+                    <div class="text-red-600 text-sm"
+                        *ngIf="createForm.controls['price'].errors?.['required'] && (createForm.controls['price']?.touched || createForm.controls['price']?.dirty)">
+                        Field is required!
                     </div>
                     <div class="flex flex-col pt-4">
                         <label for="availability" class="text-lg">Availability</label>
-                        <select id="availability" formControlName="availability" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 mt-1 leading-tight focus:outline-none focus:shadow-outline">
+                        <select id="availability" formControlName="availability"  required
+                            class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 mt-1 leading-tight focus:outline-none focus:shadow-outline">
                             <option value="true">Available</option>
                             <option value="false">Unavailable</option>
-                          </select>
+                        </select>
                     </div>
-                    <input type="submit" value="Add" [disabled]=!createForm.valid class="bg-black text-white font-bold text-lg hover:bg-gray-700 p-2 mt-8" />
+                    <div class="text-red-600 text-sm"
+                        *ngIf="createForm.controls['availability'].errors?.['required'] && (createForm.controls['availability']?.touched || createForm.controls['availability']?.dirty)">
+                        Field is required!
+                    </div>
+                    <input type="submit" value="Add" [disabled]="!createForm.valid"
+                        class="bg-black text-white font-bold text-lg hover:bg-gray-700 p-2 mt-8 disabled:bg-gray-400" />
                     <a href="/dishes" class="text-center text-black font-bold text-xl p-4">Back</a>
                 </form>
             </div>

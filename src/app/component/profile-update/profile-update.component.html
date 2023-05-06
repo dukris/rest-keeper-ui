@@ -23,7 +23,7 @@
                     <a href="/profile/{{currentId}}"
                         class="block font-bold py-2 pr-4 pl-3 text-sky-300 border-b border-gray-100 hover:bg-gray-50 lg:hover:bg-transparent lg:border-0 lg:hover:text-primary-700 lg:p-0">
                         My profile</a>
-                        <button (click)="logout()"
+                    <button (click)="logout()"
                         class="block font-bold py-2 ml-16 pr-4 pl-3 text-vlack border-b border-gray-100 hover:bg-gray-50 lg:hover:bg-transparent lg:border-0 lg:hover:text-primary-700 lg:p-0">
                         Log Out</button>
                 </div>
@@ -76,11 +76,35 @@
                                 ngModel="{{user.name}}" required
                                 class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 mt-1 leading-tight focus:outline-none focus:shadow-outline" />
                         </div>
+                        <div class="text-red-600 text-sm"
+                            *ngIf="updateForm.controls['name'].errors?.['required'] && (updateForm.controls['name']?.touched || updateForm.controls['name']?.dirty)">
+                            Field is required!
+                        </div>
+                        <div class="text-red-600 text-sm"
+                            *ngIf="updateForm.controls['name'].errors?.['minlength'] && (updateForm.controls['name']?.touched || updateForm.controls['name']?.dirty)">
+                            Name must contain at least 2 characters!
+                        </div>
+                        <div class="text-red-600 text-sm"
+                            *ngIf="updateForm.controls['name'].errors?.['maxlength'] && (updateForm.controls['name']?.touched || updateForm.controls['name']?.dirty)">
+                            Name must contain maximum 50 characters!
+                        </div>
                         <div class="flex flex-col pt-4">
                             <label for="surname" class="text-lg">Surname</label>
                             <input type="text" id="surname" formControlName="surname" placeholder="Smith"
                                 ngModel="{{user.surname}}" required
                                 class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 mt-1 leading-tight focus:outline-none focus:shadow-outline" />
+                        </div>
+                        <div class="text-red-600 text-sm"
+                            *ngIf="updateForm.controls['surname'].errors?.['required'] && (updateForm.controls['surname']?.touched || updateForm.controls['surname']?.dirty)">
+                            Field is required!
+                        </div>
+                        <div class="text-red-600 text-sm"
+                            *ngIf="updateForm.controls['surname'].errors?.['minlength'] && (updateForm.controls['surname']?.touched || updateForm.controls['surname']?.dirty)">
+                            Surname must contain at least 2 characters!
+                        </div>
+                        <div class="text-red-600 text-sm"
+                            *ngIf="updateForm.controls['surname'].errors?.['maxlength'] && (updateForm.controls['surname']?.touched || updateForm.controls['surname']?.dirty)">
+                            Surname must contain maximum 50 characters!
                         </div>
                         <div class="flex flex-col pt-4">
                             <label for="passport" class="text-lg">Passport</label>
@@ -88,11 +112,27 @@
                                 ngModel="{{user.passport}}" required
                                 class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 mt-1 leading-tight focus:outline-none focus:shadow-outline" />
                         </div>
+                        <div class="text-red-600 text-sm"
+                            *ngIf="updateForm.controls['passport'].errors?.['required'] && (updateForm.controls['passport']?.touched || updateForm.controls['passport']?.dirty)">
+                            Field is required!
+                        </div>
+                        <div class="text-red-600 text-sm"
+                            *ngIf="updateForm.controls['passport'].errors?.['minlength'] && (updateForm.controls['passport']?.touched || updateForm.controls['passport']?.dirty)">
+                            Passport must contain at least 8 characters!
+                        </div>
+                        <div class="text-red-600 text-sm"
+                            *ngIf="updateForm.controls['passport'].errors?.['maxlength'] && (updateForm.controls['passport']?.touched || updateForm.controls['passport']?.dirty)">
+                            Passport must contain maximum 20 characters!
+                        </div>
                         <div class="flex flex-col pt-4">
                             <label for="dateOfBirth" class="text-lg">Date of birth</label>
                             <input type="date" id="dateOfBirth" formControlName="dateOfBirth" placeholder="Date"
-                                ngModel="{{user.dateOfBirth}}" required
+                                required
                                 class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 mt-1 leading-tight focus:outline-none focus:shadow-outline" />
+                        </div>
+                        <div class="text-red-600 text-sm"
+                            *ngIf="updateForm.controls['dateOfBirth'].errors?.['required'] && (updateForm.controls['dateOfBirth']?.touched || updateForm.controls['dateOfBirth']?.dirty)">
+                            Field is required!
                         </div>
                         <div class="flex flex-col pt-4">
                             <label for="phoneNumber" class="text-lg">Phone number</label>
@@ -100,7 +140,12 @@
                                 ngModel="{{user.phoneNumber}}" required
                                 class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 mt-1 leading-tight focus:outline-none focus:shadow-outline" />
                         </div>
-                        <div class="error" *ngIf="updateForm.controls['phoneNumber'].errors?.['pattern']">
+                        <div class="text-red-600 text-sm"
+                            *ngIf="updateForm.controls['phoneNumber'].errors?.['required'] && (updateForm.controls['phoneNumber']?.touched || updateForm.controls['phoneNumber']?.dirty)">
+                            Field is required!
+                        </div>
+                        <div class="text-red-600 text-sm"
+                            *ngIf="updateForm.controls['phoneNumber'].errors?.['pattern']">
                             Wrong number!
                         </div>
                         <div class="flex flex-col pt-4">
@@ -120,26 +165,46 @@
                                 <option value="Los Angeles">Los Angeles</option>
                             </select>
                         </div>
+                        <div class="text-red-600 text-sm"
+                            *ngIf="updateForm.controls['city'].errors?.['required'] && (updateForm.controls['city']?.touched || updateForm.controls['city']?.dirty)">
+                            Field is required!
+                        </div>
                         <div class="flex flex-col pt-4">
                             <label for="street" class="text-lg">Street</label>
                             <input type="text" id="street" formControlName="street" ngModel="{{user.address.street}}"
                                 placeholder="Street" required
                                 class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 mt-1 leading-tight focus:outline-none focus:shadow-outline">
                         </div>
+                        <div class="text-red-600 text-sm"
+                            *ngIf="updateForm.controls['street'].errors?.['required'] && (updateForm.controls['street']?.touched || updateForm.controls['street']?.dirty)">
+                            Field is required!
+                        </div>
+                        <div class="text-red-600 text-sm"
+                            *ngIf="updateForm.controls['street'].errors?.['minlength'] && (updateForm.controls['street']?.touched || updateForm.controls['street']?.dirty)">
+                            Street must contain at least 2 characters!
+                        </div>
+                        <div class="text-red-600 text-sm"
+                            *ngIf="updateForm.controls['street'].errors?.['maxlength'] && (updateForm.controls['street']?.touched || updateForm.controls['street']?.dirty)">
+                            Street must contain maximum 50 characters!
+                        </div>
                         <div class="flex flex-col pt-4">
                             <label for="house" class="text-lg">House</label>
-                            <input type="number" id="house" formControlName="house" placeholder="12"
+                            <input type="number" id="house" formControlName="house" placeholder="12" min="1"
                                 ngModel="{{user.address.house}}" required
                                 class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 mt-1 leading-tight focus:outline-none focus:shadow-outline">
                         </div>
+                        <div class="text-red-600 text-sm"
+                            *ngIf="updateForm.controls['house'].errors?.['required'] && (updateForm.controls['house']?.touched || updateForm.controls['house']?.dirty)">
+                            Field is required!
+                        </div>
                         <div class="flex flex-col pt-4">
                             <label for="flat" class="text-lg">Flat</label>
-                            <input type="number" id="flat" formControlName="flat" placeholder="35"
+                            <input type="number" id="flat" formControlName="flat" placeholder="35" min="1"
                                 ngModel="{{user.address.flat}}"
                                 class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 mt-1 leading-tight focus:outline-none focus:shadow-outline">
                         </div>
-                        <input type="submit" value="Save" [disabled]=!updateForm.valid
-                            class="bg-black text-white font-bold text-lg hover:bg-gray-700 p-2 mt-8">
+                        <input type="submit" value="Save" [disabled]="!updateForm.valid"
+                            class="bg-black text-white font-bold text-lg hover:bg-gray-700 p-2 mt-8 disabled:bg-gray-400">
                         <a href="/profile/{{id}}" class="text-center text-black font-bold text-xl p-4">Back</a>
                     </form>
                 </div>
