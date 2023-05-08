@@ -36,7 +36,13 @@ export class User {
     this.phoneNumber = phoneNumber;
     this.photoPath = photoPath;
     this.score = score;
-    this.address = address;
+    this.address = new Address(
+      null,
+      address.city,
+      address.street,
+      address.house,
+      address.flat
+    );
   }
 
 }

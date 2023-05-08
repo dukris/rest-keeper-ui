@@ -66,9 +66,9 @@ export class OrderService {
     create(createForm: FormGroup, userId: any): Observable<any> {
         let address = new Address(
             null,
-            null,
-            null,
-            null,
+            " ",
+            " ",
+            " ",
             null
         )
         let user = new User(

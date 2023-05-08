@@ -69,6 +69,16 @@
             <div class="grid gap-8 mb-6 lg:mb-16 md:grid-cols-6">
                 <div
                     class="flex flex-col justify-center md:justify-start my-auto pt-8 md:pt-0 px-8 md:px-24 lg:px-32  col-start-2 col-span-4">
+                    <!-- <form class="form" [formGroup]="photoForm" (ngSubmit)="onSubmitForm()">
+                        <div class="flex flex-col pt-4">
+                            <label for="photo" class="text-lg">Photo</label>
+                            <input type="file" (change)="selectFile($event)"
+                                accept=".jpg,.jpeg,.png" id="photo" formControlName="photo"
+                                class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 mt-1 leading-tight focus:outline-none focus:shadow-outline">
+                        </div>
+                        <input type="submit" value="Save" [disabled]="!photoForm.valid"
+                            class="bg-black text-white font-bold text-lg hover:bg-gray-700 p-2 mt-8 disabled:bg-gray-400">
+                    </form> -->
                     <form class="form" [formGroup]="updateForm" (ngSubmit)="onSubmitForm()">
                         <div class="flex flex-col pt-4">
                             <label for="name" class="text-lg">Name</label>
@@ -150,12 +160,13 @@
                         </div>
                         <div class="flex flex-col pt-4">
                             <label for="photo" class="text-lg">Photo</label>
-                            <input type="file" accept=".jpg,.jpeg,.png" id="photo" formControlName="photo"
+                            <input type="file" (change)="selectFile($event)"
+                                accept=".jpg,.jpeg,.png" id="photo" formControlName="photo"
                                 class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 mt-1 leading-tight focus:outline-none focus:shadow-outline">
                         </div>
                         <div class="flex flex-col pt-4">
                             <label for="city" class="text-lg">City</label>
-                            <select id="city" required formControlName="city" ngModel="{{user.address.city}}"
+                            <select id="city" required formControlName="city"
                                 class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 mt-1 leading-tight focus:outline-none focus:shadow-outline">
                                 <option value="Minsk">Minsk</option>
                                 <option value="Moscow">Moscow</option>
@@ -171,8 +182,7 @@
                         </div>
                         <div class="flex flex-col pt-4">
                             <label for="street" class="text-lg">Street</label>
-                            <input type="text" id="street" formControlName="street" ngModel="{{user.address.street}}"
-                                placeholder="Street" required
+                            <input type="text" id="street" formControlName="street" placeholder="Street" required
                                 class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 mt-1 leading-tight focus:outline-none focus:shadow-outline">
                         </div>
                         <div class="text-red-600 text-sm"
@@ -190,7 +200,6 @@
                         <div class="flex flex-col pt-4">
                             <label for="house" class="text-lg">House</label>
                             <input type="number" id="house" formControlName="house" placeholder="12" min="1"
-                                ngModel="{{user.address.house}}" required
                                 class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 mt-1 leading-tight focus:outline-none focus:shadow-outline">
                         </div>
                         <div class="text-red-600 text-sm"
@@ -200,12 +209,10 @@
                         <div class="flex flex-col pt-4">
                             <label for="flat" class="text-lg">Flat</label>
                             <input type="number" id="flat" formControlName="flat" placeholder="35" min="1"
-                                ngModel="{{user.address.flat}}"
                                 class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 mt-1 leading-tight focus:outline-none focus:shadow-outline">
                         </div>
                         <input type="submit" value="Save" [disabled]="!updateForm.valid"
                             class="bg-black text-white font-bold text-lg hover:bg-gray-700 p-2 mt-8 disabled:bg-gray-400">
-                        <a href="/profile/{{id}}" class="text-center text-black font-bold text-xl p-4">Back</a>
                     </form>
                 </div>
             </div>

@@ -22,17 +22,23 @@ export class AuthInterceptor implements HttpInterceptor {
   );
 
   constructor(
-        private authService: AuthApiService, private router: Router
-    ){
-    
-    }
+    private authService: AuthApiService, private router: Router
+  ) {
 
-  intercept(req: HttpRequest<any>,next: HttpHandler): Observable<HttpEvent<any>> {
-    if (!(req.url.includes(`photos`) && req.method== 'POST')) {
+  }
+
+  intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
+
+    if (!(req.url.includes(`photos`) && req.method == 'POST')) {
       req = req.clone({
         headers: req.headers.set("Content-Type", "application/json")
       });
-    }
+    } 
+    // else {
+    //   req = req.clone({
+    //     headers: req.headers.set("Content-Type", "multipart/form-data")
+    //   });
+    // }
 
     req = this.addAuthenticationToken(req);
 
@@ -57,7 +63,7 @@ export class AuthInterceptor implements HttpInterceptor {
             return this.authService.updateFromRefresh().pipe(
               switchMap((res: any) => {
                 const cookies = new Cookies();
-                cookies.set('access', res.token, { path: '/', expires:new Date(Number(res.expTime)) });
+                cookies.set('access', res.token, { path: '/', expires: new Date(Number(res.expTime)) });
                 this.refreshTokenSubject.next(true);
                 return next.handle(this.addAuthenticationToken(req));
               }),
@@ -76,7 +82,7 @@ export class AuthInterceptor implements HttpInterceptor {
 
   private addAuthenticationToken(request: HttpRequest<any>): HttpRequest<any> {
     const cookies = new Cookies();
-    const jwtToken = cookies.get('access'); 
+    const jwtToken = cookies.get('access');
     if (!jwtToken) {
       return request;
     }

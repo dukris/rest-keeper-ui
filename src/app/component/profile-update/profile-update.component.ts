@@ -30,6 +30,10 @@ export class ProfileUpdateComponent implements OnInit {
     photo: new FormControl(new File([],''))
   })
 
+  photoForm = new FormGroup({
+    photo: new FormControl(new File([],''))
+  })
+
   constructor(
     private userService: UserService,
     private router: Router,
@@ -51,7 +55,7 @@ export class ProfileUpdateComponent implements OnInit {
         },
         error: (response) => {
           if (response.status === 400 || response.status === 401 || response.status === 404) {
-            alert(response.error.msg)
+            // alert(response.error.msg)
           }
           if (response.status >= 500) {
             alert("Something happened on the server!")
@@ -60,17 +64,24 @@ export class ProfileUpdateComponent implements OnInit {
       })
   }
 
+  public selectFile(event : any) {
+    this.updateForm.controls['photo'].setValue(event.target.files[0]);
+  }
+
   onSubmitForm() {
-    if (this.updateForm.get('photo') != null) {
+    console.log(this.updateForm.get('photo')?.value?.size)
+    console.log(this.updateForm.get('photo')?.value?.size !=0)
+    if (this.updateForm.get('photo')?.value?.size != 0) {
       this.userService
         .addPhoto(this.updateForm, this.id)
         .subscribe({
           next: (res) => {
+            this.router.navigate([`/profile/${this.id}`]);
             alert("Photo is saved!");
           },
           error: (response) => {
             if (response.status === 400 || response.status === 401 || response.status === 404) {
-              alert(response.error.msg)
+              // alert(response.error.msg)
             }
             if (response.status >= 500) {
               alert("Something happened on the server!")
@@ -82,12 +93,12 @@ export class ProfileUpdateComponent implements OnInit {
       .update(this.updateForm)
       .subscribe({
         next: (res) => {
-          this.router.navigate([`/profile/${this.id}`]);
+          // this.router.navigate([`/profile/${this.id}`]);
           alert("Information is saved!");
         },
         error: (response) => {
           if (response.status === 400 || response.status === 401 || response.status === 404) {
-            alert(response.error.msg)
+            // alert(response.error.msg)
           }
           if (response.status >= 500) {
             alert("Something happened on the server!")

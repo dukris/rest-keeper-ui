@@ -55,6 +55,13 @@ export class ProfileComponent implements OnInit {
       .subscribe({
         next: (res) => {
           alert("User is deleted successfully!");
+          if (this.id == this.currentId) {
+            localStorage.removeItem('userId')
+            localStorage.removeItem('roleName')
+            this.cookies.remove('access');
+            this.cookies.remove('refresh');
+            this.router.navigate(["/login"]);
+          }
           this.router.navigate(["/employees"]);
         },
         error: (response) => {
@@ -87,7 +94,7 @@ export class ProfileComponent implements OnInit {
       })
   }
 
-  logout(){
+  logout() {
     localStorage.removeItem('userId')
     localStorage.removeItem('roleName')
     this.cookies.remove('access');

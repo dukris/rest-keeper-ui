@@ -79,18 +79,6 @@
                             class="text-center bg-black text-white w-40 font-bold text-lg hover:bg-gray-700 p-2 mt-8">
                             Create new order</a>
                     </div>
-                    <!-- <form class="form">
-                        <div class="p-4">
-                            <p class="font-light text-gray-500 sm:text-xl">Here you can choose the filter...</p>
-                            <select #device id="role" formControlName="searchRole"
-                                class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 mt-1 leading-tight focus:outline-none focus:shadow-outline">
-                                <option value="All">All</option>
-                                <option value="ROLE_ADMIN">Administration</option>
-                                <option value="ROLE_HALL">Hall</option>
-                                <option value="ROLE_KITCHEN">Kitchen</option>
-                            </select>
-                        </div>
-                    </form> -->
                     <form class="form" [formGroup]="searchForm" (ngSubmit)="onSubmitForm()">
                         <div class="flex flex-wrap">
                             <div class="relative w-full grid gap-4 mb-2 lg:mb-2 md:grid-cols-6">
