@@ -90,7 +90,7 @@ export class ProfileUpdateComponent implements OnInit {
         })
     }
     this.userService
-      .update(this.updateForm)
+      .update(this.updateForm, this.id)
       .subscribe({
         next: (res) => {
           if (this.updateForm.get('photo')?.value?.size == 0) {

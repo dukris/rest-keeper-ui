@@ -37,8 +37,7 @@ export class UserService {
             .delete(`http://localhost:8080/restkeeper/v1/users/${id}`, { withCredentials: true })
     }
 
-    update(updateForm: FormGroup): Observable<any> {
-        let id = localStorage.getItem('userId');
+    update(updateForm: FormGroup, id: any): Observable<any> {
         let user = new User(
             id,
             updateForm.get('name')?.value,
