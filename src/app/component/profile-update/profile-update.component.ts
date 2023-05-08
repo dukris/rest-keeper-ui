@@ -27,11 +27,11 @@ export class ProfileUpdateComponent implements OnInit {
     street: new FormControl('', [Validators.required, Validators.minLength(2), Validators.maxLength(50)]),
     house: new FormControl('', [Validators.required]),
     flat: new FormControl(''),
-    photo: new FormControl(new File([],''))
+    photo: new FormControl(new File([], ''))
   })
 
   photoForm = new FormGroup({
-    photo: new FormControl(new File([],''))
+    photo: new FormControl(new File([], ''))
   })
 
   constructor(
@@ -64,13 +64,13 @@ export class ProfileUpdateComponent implements OnInit {
       })
   }
 
-  public selectFile(event : any) {
+  public selectFile(event: any) {
     this.updateForm.controls['photo'].setValue(event.target.files[0]);
   }
 
   onSubmitForm() {
     console.log(this.updateForm.get('photo')?.value?.size)
-    console.log(this.updateForm.get('photo')?.value?.size !=0)
+    console.log(this.updateForm.get('photo')?.value?.size != 0)
     if (this.updateForm.get('photo')?.value?.size != 0) {
       this.userService
         .addPhoto(this.updateForm, this.id)
@@ -93,7 +93,9 @@ export class ProfileUpdateComponent implements OnInit {
       .update(this.updateForm)
       .subscribe({
         next: (res) => {
-          // this.router.navigate([`/profile/${this.id}`]);
+          if (this.updateForm.get('photo')?.value?.size == 0) {
+            this.router.navigate([`/profile/${this.id}`]);
+          }
           alert("Information is saved!");
         },
         error: (response) => {
@@ -107,7 +109,7 @@ export class ProfileUpdateComponent implements OnInit {
       })
   }
 
-  logout(){
+  logout() {
     localStorage.removeItem('userId')
     localStorage.removeItem('roleName')
     this.cookies.remove('access');

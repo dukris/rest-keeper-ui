@@ -56,13 +56,14 @@ export class OrderComponent implements OnInit {
                 break;
               };
             }
+            order.time = order.time?.replace("T", " ").substring(0, 16)!;
           });
-          this.orders.sort((n1,n2) => {
-            if (n2.status=='Completed') {
+          this.orders.sort((n1, n2) => {
+            if (n2.status == 'Completed') {
               return -1;
             }
             return 1;
-        });
+          });
         },
         error: (response) => {
           if (response.status === 400 || response.status === 401 || response.status === 404) {
@@ -102,12 +103,12 @@ export class OrderComponent implements OnInit {
               };
             }
           });
-          this.orders.sort((n1,n2) => {
-            if (n2.status=='Completed') {
+          this.orders.sort((n1, n2) => {
+            if (n2.status == 'Completed') {
               return -1;
             }
             return 1;
-        });
+          });
         },
         error: (response) => {
           if (response.status === 400 || response.status === 401 || response.status === 404) {
@@ -120,45 +121,45 @@ export class OrderComponent implements OnInit {
       })
   }
 
-  delete(id: any){
+  delete(id: any) {
     this.orderService
-    .delete(id)
-    .subscribe({
-      next: (res) => {
-        alert("Order is deleted sucessfully!");
-        this.router.navigate([`/orders`]);
-      },
-      error: (response) => {
-        if (response.status === 400 || response.status === 401 || response.status === 404) {
-          alert(response.error.msg)
+      .delete(id)
+      .subscribe({
+        next: (res) => {
+          alert("Order is deleted sucessfully!");
+          this.router.navigate([`/orders`]);
+        },
+        error: (response) => {
+          if (response.status === 400 || response.status === 401 || response.status === 404) {
+            alert(response.error.msg)
+          }
+          if (response.status >= 500) {
+            alert("Something happened on the server!")
+          }
         }
-        if (response.status >= 500) {
-          alert("Something happened on the server!")
-        }
-      }
-    })
+      })
   }
 
-  changeStatus(id: any, status: any){
+  changeStatus(id: any, status: any) {
     this.orderService
-    .changeStatus(id, status)
-    .subscribe({
-      next: (res) => {
-        alert("Status of order is updated sucessfully!");
-        this.router.navigate([`/orders`]);
-      },
-      error: (response) => {
-        if (response.status === 400 || response.status === 401 || response.status === 404) {
-          alert(response.error.msg)
+      .changeStatus(id, status)
+      .subscribe({
+        next: (res) => {
+          alert("Status of order is updated sucessfully!");
+          this.router.navigate([`/orders`]);
+        },
+        error: (response) => {
+          if (response.status === 400 || response.status === 401 || response.status === 404) {
+            alert(response.error.msg)
+          }
+          if (response.status >= 500) {
+            alert("Something happened on the server!")
+          }
         }
-        if (response.status >= 500) {
-          alert("Something happened on the server!")
-        }
-      }
-    })
+      })
   }
 
-  logout(){
+  logout() {
     localStorage.removeItem('userId')
     localStorage.removeItem('roleName')
     this.cookies.remove('access');
