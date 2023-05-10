@@ -1,4 +1,13 @@
-# RestKeeperUi
+[![DevOps By Rultor.com](https://www.rultor.com/b/hizmailovich/RestKeeper)](https://www.rultor.com/p/hizmailovich/rest-keeper-ui)
+<br>
+
+Project architect: [@hizmailovich](https://github.com/hizmailovich)
+
+Smart and elegant system for restaurants "RestKeeper" [Frontend]. See backend part [here](https://github.com/hizmailovich/rest-keeper-ui).
+
+**Problem:** Currently, the restaurant business is developing quite rapidly. As a result, the competition between establishments increases, hence the competition for potential visitors, which entails an increase in the requirements for business strategy.
+
+**Solution:** Use "RestKeeper" to automate your business.
 
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 15.2.4.
 
