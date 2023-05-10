@@ -23,6 +23,9 @@
                     <a href="/profile/{{currentId}}"
                         class="block font-bold py-2 pr-4 pl-3 text-sky-300 border-b border-gray-100 hover:bg-gray-50 lg:hover:bg-transparent lg:border-0 lg:hover:text-primary-700 lg:p-0">
                         My profile</a>
+                        <button (click)="logout()"
+                        class="block font-bold py-2 ml-16 pr-4 pl-3 text-vlack border-b border-gray-100 hover:bg-gray-50 lg:hover:bg-transparent lg:border-0 lg:hover:text-primary-700 lg:p-0">
+                        Log Out</button>
                 </div>
                 <div class="hidden justify-between items-center w-full lg:flex lg:w-auto lg:order-1" id="mobile-menu-2">
                     <ul class="flex flex-col mt-4 font-medium lg:flex-row lg:space-x-8 lg:mt-0">
@@ -68,9 +71,8 @@
             <div class="py-8 px-4 mx-auto max-w-screen-xl lg:py-16 lg:px-6">
                 <div class="mx-auto max-w-screen-sm text-center">
                     <h2 class="mb-4 text-4xl tracking-tight font-extrabold text-black dark:text-white">Report</h2>
-                    <p class="font-light text-gray-500  sm:text-xl dark:text-gray-400">Explore the whole
-                        collection of open-source web components and elements built with the utility classes from
-                        Tailwind</p>
+                    <p class="font-light text-gray-500  sm:text-xl dark:text-gray-400">
+                        Here you can see the table with the information about this working day. To download this report you can use the botton below</p>
                 </div>
             </div>
             <div class="flex flex-col justify-center md:justify-start my-auto pt-8 md:pt-0 px-8 md:px-24 lg:px-32">

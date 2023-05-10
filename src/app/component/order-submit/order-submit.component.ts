@@ -6,6 +6,7 @@ import { Dish } from 'src/app/model/dish';
 import { Order } from 'src/app/model/order';
 import { DishService } from 'src/app/service/DishService';
 import { OrderService } from 'src/app/service/OrderService';
+import Cookies from 'universal-cookie';
 
 @Component({
   selector: 'app-order-submit',
@@ -18,6 +19,7 @@ export class OrderSubmitComponent implements OnInit {
   orderId!: string;
   order!: Order;
   dishes: Dish[] = [];
+  cookies: Cookies = new Cookies();
 
   amountForm = new FormGroup({
     amount: new FormControl('', [Validators.required])
@@ -30,19 +32,21 @@ export class OrderSubmitComponent implements OnInit {
     private dishService: DishService) { }
 
   ngOnInit(): void {
+    if (this.cookies.get('access') == null) {
+      localStorage.removeItem('userId')
+      localStorage.removeItem('roleName')
+      this.router.navigate(["/login"]);
+    }
     this.route.params.subscribe(params => this.orderId = params['id']);
     this.orderService
       .getById(this.orderId)
       .subscribe({
         next: (res) => {
           this.order = res;
-          this.router.navigate([`/orders`]);
         },
         error: (response) => {
           if (response.status === 400 || response.status === 401 || response.status === 404) {
-            Object.values(response.error.errors).map((message) => {
-              alert(message);
-            });
+            alert(response.error.msg)
           }
           if (response.status >= 500) {
             alert("Something happened on the server!")
@@ -57,9 +61,7 @@ export class OrderSubmitComponent implements OnInit {
         },
         error: (response) => {
           if (response.status === 400 || response.status === 401 || response.status === 404) {
-            Object.values(response.error.errors).map((message) => {
-              alert(message);
-            });
+            alert(response.error.msg)
           }
           if (response.status >= 500) {
             alert("Something happened on the server!")
@@ -79,9 +81,7 @@ export class OrderSubmitComponent implements OnInit {
         },
         error: (response) => {
           if (response.status === 400 || response.status === 401 || response.status === 404) {
-            Object.values(response.error.errors).map((message) => {
-              alert(message);
-            });
+            alert(response.error.msg)
           }
           if (response.status >= 500) {
             alert("Something happened on the server!")
@@ -96,12 +96,11 @@ export class OrderSubmitComponent implements OnInit {
       .subscribe({
         next: (res) => {
           alert("Order is received successfully!")
+          this.router.navigate([`/orders`]);
         },
         error: (response) => {
           if (response.status === 400 || response.status === 401 || response.status === 404) {
-            Object.values(response.error.errors).map((message) => {
-              alert(message);
-            });
+            alert(response.error.msg)
           }
           if (response.status >= 500) {
             alert("Something happened on the server!")
@@ -119,9 +118,7 @@ export class OrderSubmitComponent implements OnInit {
         },
         error: (response) => {
           if (response.status === 400 || response.status === 401 || response.status === 404) {
-            Object.values(response.error.errors).map((message) => {
-              alert(message);
-            });
+            alert(response.error.msg)
           }
           if (response.status >= 500) {
             alert("Something happened on the server!")
@@ -129,6 +126,15 @@ export class OrderSubmitComponent implements OnInit {
         }
       })
   }
+
+  logout(){
+    localStorage.removeItem('userId')
+    localStorage.removeItem('roleName')
+    this.cookies.remove('access');
+    this.cookies.remove('refresh');
+    this.router.navigate(["/login"]);
+  }
+  
 
 }
 

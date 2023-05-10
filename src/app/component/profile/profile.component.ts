@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { UserService } from 'src/app/service/UserService';
 import { User } from 'src/app/model/user';
 import { ActivatedRoute, Router } from '@angular/router';
+import Cookies from 'universal-cookie';
 
 @Component({
   selector: 'app-profile',
@@ -15,6 +16,7 @@ export class ProfileComponent implements OnInit {
   user!: User;
   link: string = " ";
   role: string | null = localStorage.getItem('roleName');
+  cookies: Cookies = new Cookies();
 
   constructor(
     private route: ActivatedRoute,
@@ -22,6 +24,11 @@ export class ProfileComponent implements OnInit {
     private router: Router) { }
 
   ngOnInit(): void {
+    if (this.cookies.get('access') == null) {
+      localStorage.removeItem('userId')
+      localStorage.removeItem('roleName')
+      this.router.navigate(["/login"]);
+    }
     this.currentId = localStorage.getItem("userId");
     this.route.params.subscribe(params => this.id = params['id']);
     this.userService
@@ -33,9 +40,7 @@ export class ProfileComponent implements OnInit {
         },
         error: (response) => {
           if (response.status === 400 || response.status === 401 || response.status === 404) {
-            Object.values(response.error.errors).map((message) => {
-              alert(message);
-            });
+            alert(response.error.msg)
           }
           if (response.status >= 500) {
             alert("something happened on the server")
@@ -50,13 +55,18 @@ export class ProfileComponent implements OnInit {
       .subscribe({
         next: (res) => {
           alert("User is deleted successfully!");
+          if (this.id == this.currentId) {
+            localStorage.removeItem('userId')
+            localStorage.removeItem('roleName')
+            this.cookies.remove('access');
+            this.cookies.remove('refresh');
+            this.router.navigate(["/login"]);
+          }
           this.router.navigate(["/employees"]);
         },
         error: (response) => {
           if (response.status === 400 || response.status === 401 || response.status === 404) {
-            Object.values(response.error.errors).map((message) => {
-              alert(message);
-            });
+            alert(response.error.msg)
           }
           if (response.status >= 500) {
             alert("something happened on the server")
@@ -75,14 +85,20 @@ export class ProfileComponent implements OnInit {
         },
         error: (response) => {
           if (response.status === 400 || response.status === 401 || response.status === 404) {
-            Object.values(response.error.errors).map((message) => {
-              alert(message);
-            });
+            alert(response.error.msg)
           }
           if (response.status >= 500) {
             alert("something happened on the server")
           }
         }
       })
+  }
+
+  logout() {
+    localStorage.removeItem('userId')
+    localStorage.removeItem('roleName')
+    this.cookies.remove('access');
+    this.cookies.remove('refresh');
+    this.router.navigate(["/login"]);
   }
 }

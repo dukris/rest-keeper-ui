@@ -20,26 +20,53 @@
             </div>
             <div class="flex flex-col justify-center md:justify-start my-auto pt-8 md:pt-0 px-8 md:px-24 lg:px-32">
                 <p class="mb-4 text-center font-bold text-black text-3xl">New employee</p>
-                <p class="font-light text-center text-gray-500 lg:mb-16 sm:text-xl dark:text-gray-400">Explore the whole
-                    collection of open-source web components and elements built with the utility classes from
-                    Tailwind</p>
+                <p class="font-light text-center text-gray-500 lg:mb-8 sm:text-xl dark:text-gray-400">
+                    To register a new employee, please fill out the form below with the necessary information</p>
                 <form class="form" [formGroup]="registerForm" (ngSubmit)="onSubmitForm()">
                     <div class="flex flex-col pt-4">
                         <label for="name" class="text-lg">Name</label>
                         <input type="text" id="name" formControlName="name" placeholder="John"
                             class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 mt-1 leading-tight focus:outline-none focus:shadow-outline" />
                     </div>
+                    <div class="text-red-600 text-sm"
+                        *ngIf="registerForm.controls['name'].errors?.['required'] && (registerForm.controls['name']?.touched || registerForm.controls['name']?.dirty)">
+                        Field is required!
+                    </div>
+                    <div class="text-red-600 text-sm"
+                        *ngIf="registerForm.controls['name'].errors?.['minlength'] && (registerForm.controls['name']?.touched || registerForm.controls['name']?.dirty)">
+                        Name must contain at least 2 characters!
+                    </div>
+                    <div class="text-red-600 text-sm"
+                        *ngIf="registerForm.controls['name'].errors?.['maxlength'] && (registerForm.controls['name']?.touched || registerForm.controls['name']?.dirty)">
+                        Name must contain maximum 50 characters!
+                    </div>
                     <div class="flex flex-col pt-4">
-                        <label for="name" class="text-lg">Surname</label>
+                        <label for="surname" class="text-lg">Surname</label>
                         <input type="text" id="surname" formControlName="surname" placeholder="Smith"
                             class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 mt-1 leading-tight focus:outline-none focus:shadow-outline" />
+                    </div>
+                    <div class="text-red-600 text-sm"
+                        *ngIf="registerForm.controls['surname'].errors?.['required'] && (registerForm.controls['surname']?.touched || registerForm.controls['surname']?.dirty)">
+                        Field is required!
+                    </div>
+                    <div class="text-red-600 text-sm"
+                        *ngIf="registerForm.controls['surname'].errors?.['minlength'] && (registerForm.controls['surname']?.touched || registerForm.controls['surname']?.dirty)">
+                        Surname must contain at least 2 characters!
+                    </div>
+                    <div class="text-red-600 text-sm"
+                        *ngIf="registerForm.controls['surname'].errors?.['maxlength'] && (registerForm.controls['surname']?.touched || registerForm.controls['surname']?.dirty)">
+                        Surname must contain maximum 50 characters!
                     </div>
                     <div class="flex flex-col pt-4">
                         <label for="email" class="text-lg">Email</label>
                         <input type="email" id="email" formControlName="email" placeholder="example@email.com"
                             class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 mt-1 leading-tight focus:outline-none focus:shadow-outline" />
                     </div>
-                    <div class="error" *ngIf="registerForm.controls['email'].errors?.['pattern']">
+                    <div class="text-red-600 text-sm"
+                        *ngIf="registerForm.controls['email'].errors?.['required'] && (registerForm.controls['email']?.touched || registerForm.controls['email']?.dirty)">
+                        Field is required!
+                    </div>
+                    <div class="text-red-600 text-sm" *ngIf="registerForm.controls['email'].errors?.['pattern']">
                         Wrong email!
                     </div>
                     <div class="flex flex-col pt-4">
@@ -47,21 +74,52 @@
                         <input type="text" id="passport" formControlName="passport" placeholder="Passport"
                             class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 mt-1 leading-tight focus:outline-none focus:shadow-outline" />
                     </div>
+                    <div class="text-red-600 text-sm"
+                        *ngIf="registerForm.controls['passport'].errors?.['required'] && (registerForm.controls['passport']?.touched || registerForm.controls['passport']?.dirty)">
+                        Field is required!
+                    </div>
+                    <div class="text-red-600 text-sm"
+                        *ngIf="registerForm.controls['passport'].errors?.['minlength'] && (registerForm.controls['passport']?.touched || registerForm.controls['passport']?.dirty)">
+                        Passport must contain at least 8 characters!
+                    </div>
+                    <div class="text-red-600 text-sm"
+                        *ngIf="registerForm.controls['passport'].errors?.['maxlength'] && (registerForm.controls['passport']?.touched || registerForm.controls['passport']?.dirty)">
+                        Passport must contain maximum 20 characters!
+                    </div>
                     <div class="flex flex-col pt-4">
-                        <label for="role" class="text-lg">Role</label>
-                        <select id="role" formControlName="role" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 mt-1 leading-tight focus:outline-none focus:shadow-outline">
+                        <label for="role" class="text-lg">Position
+                        </label>
+                        <select id="role" formControlName="role"
+                            class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 mt-1 leading-tight focus:outline-none focus:shadow-outline">
                             <option value="ROLE_ADMIN">Admin</option>
                             <option value="ROLE_HALL">Hall</option>
                             <option value="ROLE_KITCHEN">Kitchen</option>
-                          </select>
+                        </select>
+                    </div>
+                    <div class="text-red-600 text-sm"
+                        *ngIf="registerForm.controls['role'].errors?.['required'] && (registerForm.controls['role']?.touched || registerForm.controls['role']?.dirty)">
+                        Field is required!
                     </div>
                     <div class="flex flex-col pt-4">
                         <label for="password" class="text-lg">Password</label>
                         <input type="password" id="password" formControlName="password" placeholder="Temp password"
                             class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 mt-1 leading-tight focus:outline-none focus:shadow-outline" />
                     </div>
-                    <input type="submit" value="Register" [disabled]=!registerForm.valid
-                        class="bg-black text-white font-bold text-lg hover:bg-gray-700 p-2 mt-8" />
+                    <div class="text-red-600 text-sm"
+                        *ngIf="registerForm.controls['password'].errors?.['required'] && (registerForm.controls['password']?.touched || registerForm.controls['password']?.dirty)">
+                        Field is required!
+                    </div>
+                    <div class="text-red-600 text-sm"
+                        *ngIf="registerForm.controls['password'].errors?.['minlength'] && (registerForm.controls['password']?.touched || registerForm.controls['password']?.dirty)">
+                        Password must contain at least 8 characters!
+                    </div>
+                    <div class="text-red-600 text-sm"
+                        *ngIf="registerForm.controls['password'].errors?.['maxlength'] && (registerForm.controls['password']?.touched || registerForm.controls['password']?.dirty)">
+                        Password must contain maximum 20 characters!
+                    </div>
+                    <input type="submit" value="Register" [disabled]="!registerForm.valid"
+                        class="bg-black text-white font-bold text-lg hover:bg-gray-700 p-2 mt-8 disabled:bg-gray-400" />
+                    <a href="/employees" class="text-center text-black font-bold text-xl p-4">Back</a>
                 </form>
             </div>
         </div>

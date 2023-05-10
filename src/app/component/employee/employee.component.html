@@ -23,6 +23,9 @@
                     <a href="/profile/{{id}}"
                         class="block font-bold py-2 pr-4 pl-3 text-sky-300 border-b border-gray-100 hover:bg-gray-50 lg:hover:bg-transparent lg:border-0 lg:hover:text-primary-700 lg:p-0">
                         My profile</a>
+                        <button (click)="logout()"
+                        class="block font-bold py-2 ml-16 pr-4 pl-3 text-vlack border-b border-gray-100 hover:bg-gray-50 lg:hover:bg-transparent lg:border-0 lg:hover:text-primary-700 lg:p-0">
+                        Log Out</button>
                 </div>
                 <div class="hidden justify-between items-center w-full lg:flex lg:w-auto lg:order-1" id="mobile-menu-2">
                     <ul class="flex flex-col mt-4 font-medium lg:flex-row lg:space-x-8 lg:mt-0">
@@ -61,24 +64,18 @@
         <div class="w-full h-48 shadow-2xl">
             <img class="object-cover w-full h-48 hidden md:block" src="https://source.unsplash.com/IXUM4cJynP0">
         </div>
-        <!--  <form class="form" [formGroup]="surnameForm" (ngSubmit)="surnameSearch()">
-            <div class="flex flex-col p-4">
-                <label for="email" class="text-lg">Search</label>
-                <input type="search" id="searchSurname" name="searchSurname" formGroupName="searchSurname" placeholder="Surname..." class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 mt-1 leading-tight focus:outline-none focus:shadow-outline"/>
-                <button class="p-2" type="submit">Submit</button>
-            </div>
-        </form> -->
     </div>
     <div class="w-full flex flex-wrap">
         <div class="w-full flex flex-col">
             <p class="bg-black text-center text-white font-bold text-xl p-4">Employees</p>
             <section class="p-2">
                 <div class="py-8 px-4 mx-auto max-w-screen-xl lg:py-16 lg:px-6">
-                    <div class="mx-auto max-w-screen-sm text-center mb-8 lg:mb-16">
+                    <div class="mx-auto max-w-screen-sm text-center mb-8 lg:mb-8">
                         <h2 class="mb-4 text-4xl tracking-tight font-extrabold text-black dark:text-white">Our Team</h2>
-                        <p class="font-light text-gray-500 lg:mb-16 sm:text-xl dark:text-gray-400">Explore the whole
-                            collection of open-source web components and elements built with the utility classes from
-                            Tailwind</p>
+                        <p class="font-light text-gray-500 lg:mb-16 sm:text-xl dark:text-gray-400">
+                            Here you can see the members of our team. 
+                            Just click on the name to see full information about this employee
+                            </p>
                             <a href="/register" class="text-center bg-black text-white w-40 font-bold text-lg hover:bg-gray-700 p-2 mt-8">
                                 Register new employee</a>
                     </div>

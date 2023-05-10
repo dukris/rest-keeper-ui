@@ -3,6 +3,7 @@ import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { Router, ActivatedRoute } from '@angular/router';
 import { User } from 'src/app/model/user';
 import { UserService } from 'src/app/service/UserService';
+import Cookies from 'universal-cookie';
 
 @Component({
   selector: 'app-profile-update',
@@ -15,17 +16,22 @@ export class ProfileUpdateComponent implements OnInit {
   user!: User;
   currentId!: string | null;
   role: string | null = localStorage.getItem('roleName');
+  cookies: Cookies = new Cookies();
   updateForm = new FormGroup({
     name: new FormControl('', [Validators.required, Validators.minLength(2), Validators.maxLength(50)]),
     surname: new FormControl('', [Validators.required, Validators.minLength(2), Validators.maxLength(50)]),
     passport: new FormControl('', [Validators.required, Validators.minLength(2), Validators.maxLength(50)]),
     dateOfBirth: new FormControl('', [Validators.required]),
     phoneNumber: new FormControl('', [Validators.required, Validators.pattern(/[789][0-9]{9}/)]),
-    city: new FormControl('', [Validators.required, Validators.minLength(2), Validators.maxLength(50)]),
+    city: new FormControl('', [Validators.required]),
     street: new FormControl('', [Validators.required, Validators.minLength(2), Validators.maxLength(50)]),
     house: new FormControl('', [Validators.required]),
     flat: new FormControl(''),
-    photo: new FormControl(new File([],''))
+    photo: new FormControl(new File([], ''))
+  })
+
+  photoForm = new FormGroup({
+    photo: new FormControl(new File([], ''))
   })
 
   constructor(
@@ -34,6 +40,11 @@ export class ProfileUpdateComponent implements OnInit {
     private route: ActivatedRoute) { }
 
   ngOnInit(): void {
+    if (this.cookies.get('access') == null) {
+      localStorage.removeItem('userId')
+      localStorage.removeItem('roleName')
+      this.router.navigate(["/login"]);
+    }
     this.currentId = localStorage.getItem("userId");
     this.route.params.subscribe(params => this.id = params['id']);
     this.userService
@@ -44,55 +55,66 @@ export class ProfileUpdateComponent implements OnInit {
         },
         error: (response) => {
           if (response.status === 400 || response.status === 401 || response.status === 404) {
-            Object.values(response.error.errors).map((message) => {
-              alert(message);
-            });
+            // alert(response.error.msg)
           }
           if (response.status >= 500) {
-            alert("something happened on the server")
+            alert("Something happened on the server!")
           }
         }
       })
   }
 
+  public selectFile(event: any) {
+    this.updateForm.controls['photo'].setValue(event.target.files[0]);
+  }
+
   onSubmitForm() {
-    if (this.updateForm.get('photo') != null) {
+    console.log(this.updateForm.get('photo')?.value?.size)
+    console.log(this.updateForm.get('photo')?.value?.size != 0)
+    if (this.updateForm.get('photo')?.value?.size != 0) {
       this.userService
         .addPhoto(this.updateForm, this.id)
         .subscribe({
           next: (res) => {
+            this.router.navigate([`/profile/${this.id}`]);
             alert("Photo is saved!");
           },
           error: (response) => {
             if (response.status === 400 || response.status === 401 || response.status === 404) {
-              Object.values(response.error.errors).map((message) => {
-                alert(message);
-              });
+              // alert(response.error.msg)
             }
             if (response.status >= 500) {
-              alert("Something happened on the server")
+              alert("Something happened on the server!")
             }
           }
         })
     }
     this.userService
-      .update(this.updateForm)
+      .update(this.updateForm, this.id)
       .subscribe({
         next: (res) => {
-          this.router.navigate([`/profile/${this.id}`]);
+          if (this.updateForm.get('photo')?.value?.size == 0) {
+            this.router.navigate([`/profile/${this.id}`]);
+          }
           alert("Information is saved!");
         },
         error: (response) => {
           if (response.status === 400 || response.status === 401 || response.status === 404) {
-            Object.values(response.error.errors).map((message) => {
-              alert(message);
-            });
+            // alert(response.error.msg)
           }
           if (response.status >= 500) {
-            alert("Something happened on the server")
+            alert("Something happened on the server!")
           }
         }
       })
+  }
+
+  logout() {
+    localStorage.removeItem('userId')
+    localStorage.removeItem('roleName')
+    this.cookies.remove('access');
+    this.cookies.remove('refresh');
+    this.router.navigate(["/login"]);
   }
 
 }
