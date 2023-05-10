@@ -1,5 +1,4 @@
-[![DevOps By Rultor.com](https://www.rultor.com/b/hizmailovich/RestKeeper)](https://www.rultor.com/p/hizmailovich/rest-keeper-ui)
-<br>
+# RestKeeper
 
 Project architect: [@hizmailovich](https://github.com/hizmailovich)
 
