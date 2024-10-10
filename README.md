@@ -1,8 +1,8 @@
 # RestKeeper
 
-Project architect: [@hizmailovich](https://github.com/hizmailovich)
+Project architect: [@dukris](https://github.com/dukris)
 
-Smart and elegant system for restaurants "RestKeeper" [Frontend]. See backend part [here](https://github.com/hizmailovich/RestKeeper).
+Smart and elegant system for restaurants "RestKeeper" [Frontend]. See backend part [here](https://github.com/dukris/RestKeeper).
 
 **Problem:** Currently, the restaurant business is developing quite rapidly. As a result, the competition between establishments increases, hence the competition for potential visitors, which entails an increase in the requirements for business strategy.
 
